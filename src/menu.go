@@ -46,7 +46,7 @@ func menuPrincipal() {
 
 		switch choix {
 		case "1":
-			fmt.Println("   [temporaire] ta fiche de recrue")
+			joueur.displayInfo()
 		case "2":
 			fmt.Println("   [temporaire] ta besace")
 		case "0":
