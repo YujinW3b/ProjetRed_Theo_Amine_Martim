@@ -6,13 +6,27 @@ import (
 	"os"
 )
 
-// je le cree une seule fois ici, sinon je perds ce qui traine dans le tampon
 var lecteur = bufio.NewScanner(os.Stdin)
 
-func lireChoix() string {
-	lecteur.Scan()        // ici le programme se fige et attend que le joueur tape
-	return lecteur.Text() // Text me rend la ligne sans le \n ni le \r de Windows
+func retireEspaces(s string) string {
+	debut := 0    // debut pointe sur le premier caractere
+	fin := len(s) // fin vaut len(s) cest une position apres le dernier
+
+	for debut < fin && s[debut] == ' ' { // regarde chaque position et verif si cest < a la fin + bien un espace
+		debut++ // sa passe caractere a coté +1 a chaque fois et uen fois sa tombe sur 1, c'est 1 on stop
+	}
+
+	for fin > debut && s[fin-1] == ' ' { // pareil en partant de fin-1, on baisse a chaque fois cest un espace vide et quand on tombe sur le nombre sa return par exemple return s[0:1]
+		fin-- // on commence par trouve le bon "debut" puis la bonne "fin" et on return
+	}
+
+	return s[debut:fin]
 }
+
+func lireChoix() string {
+	lecteur.Scan()                       // ici le programme se fige et attend que le joueur tape
+	return retireEspaces(lecteur.Text()) // Text me rend la ligne sans le \n ni le \r de Windows
+} // je prends ce que lecteur.Text() me donne, je le fais passer par retireEspaces, et c'est ce qui en sort que je renvoie.
 
 func afficherMenu() {
 	fmt.Println()
