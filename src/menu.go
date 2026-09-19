@@ -6,27 +6,27 @@ import (
 	"os"
 )
 
-var lecteur = bufio.NewScanner(os.Stdin)
+var lecteur = bufio.NewScanner(os.Stdin) // un seul scanner pour tout le jeu
 
 func retireEspaces(s string) string {
-	debut := 0    // debut pointe sur le premier caractere
-	fin := len(s) // fin vaut len(s) cest une position apres le dernier
+	debut := 0    // je set debut = 0
+	fin := len(s) // je set fin sur dernier caractere
 
-	for debut < fin && s[debut] == ' ' { // regarde chaque position et verif si cest < a la fin + bien un espace
-		debut++ // sa passe caractere a coté +1 a chaque fois et uen fois sa tombe sur 1, c'est 1 on stop
+	for debut < fin && s[debut] == ' ' { // javance espace de gauche jusqua caractere petit a petit et fin évite de depasser la limite
+		debut++ // jeface rien je deplace juste la borne
 	}
 
-	for fin > debut && s[fin-1] == ' ' { // pareil en partant de fin-1, on baisse a chaque fois cest un espace vide et quand on tombe sur le nombre sa return par exemple return s[0:1]
-		fin-- // on commence par trouve le bon "debut" puis la bonne "fin" et on return
+	for fin > debut && s[fin-1] == ' ' { // pareil mais en partant de la fin de droite jusqua caracterre
+		fin-- // fin-1 car la fin est 1 caractere apres la vrai fin
 	}
 
-	return s[debut:fin]
+	return s[debut:fin] // a détaillé
 }
 
 func lireChoix() string {
-	lecteur.Scan()                       // ici le programme se fige et attend que le joueur tape
-	return retireEspaces(lecteur.Text()) // Text me rend la ligne sans le \n ni le \r de Windows
-} // je prends ce que lecteur.Text() me donne, je le fais passer par retireEspaces, et c'est ce qui en sort que je renvoie.
+	lecteur.Scan()                       // programme figer attend joueur donne reponse
+	return retireEspaces(lecteur.Text()) // text rend ligne sans \n ni le \r
+} // je nettoie maintenant comme ca switch gere rien
 
 func afficherMenu() {
 	fmt.Println()
@@ -36,11 +36,11 @@ func afficherMenu() {
 	fmt.Println("   2. Ta besace")
 	fmt.Println("   0. Quitter le camp")
 	fmt.Println()
-	fmt.Print("   Ton choix : ") // Print et pas Println, le curseur reste a cote
+	fmt.Print("   Ton choix : ") // print et pas println car je veux que le joueur taper a coté et pas en dessous
 }
 
 func menuPrincipal() {
-	for { // boucle infinie, seul le return du choix 0 en sort
+	for { // boucle infinie il y a que return qui fais sortir de la boucle
 		afficherMenu()
 		choix := lireChoix()
 
@@ -51,8 +51,8 @@ func menuPrincipal() {
 			fmt.Println("   [temporaire] ta besace")
 		case "0":
 			fmt.Println("   Le Sergent hoche la tete. A demain, recrue.")
-			return // pas break, il sortirait du switch et la boucle repartirait
-		default: // attrape tout : saisie vide, lettres, chiffres hors menu
+			return // return et pas break car break fais que sortrir switch pas dla boucle
+		default: // prend tout reste ( vide.. ) et fais renvoie une rep
 			fmt.Println("   Parle plus clairement, recrue.")
 		}
 	}
