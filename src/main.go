@@ -1,7 +1,9 @@
 package main
 
+// le perso est global : tous les fichiers du package peuvent le lire
+var joueur Charactere
+
 func main() {
-	var player Charactere
-	player.initCharactere("martim", "amine")
-	player.displayInfo()
+	joueur.initCharactere("Recrue", "Humain")
+	menuPrincipal()
 }
