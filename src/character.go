@@ -4,7 +4,7 @@ import "fmt"
 
 const potionLife = "potions 2 vie"
 
-type Charactere struct {
+type Character struct {
 	Name       string
 	Class      string
 	Pvmax      int
@@ -12,7 +12,7 @@ type Charactere struct {
 	Inventaire map[string]int
 }
 
-func (c *Charactere) initCharactere(name string, class string) {
+func (c *Character) initCharactere(name string, class string) {
 	c.Name = name
 	c.Class = class
 	c.Pv = 50
@@ -20,7 +20,7 @@ func (c *Charactere) initCharactere(name string, class string) {
 	c.Inventaire = map[string]int{potionLife: 5}
 }
 
-func (c *Charactere) displayInfo() {
+func (c *Character) displayInfo() {
 	fmt.Println("=== info ===")
 	fmt.Printf("\tnom : %s\n", c.Name)
 	fmt.Printf("\tClasse : %s\n", c.Class)
