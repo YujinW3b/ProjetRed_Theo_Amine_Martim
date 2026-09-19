@@ -5,11 +5,12 @@ import "fmt"
 const potionLife = "potions 2 vie"
 
 type Character struct {
-	Name       string
-	Class      string
-	Pvmax      int
-	Pv         int
-	Inventaire map[string]int
+	Name                string
+	Class               string
+	Pvmax               int
+	Pv                  int
+	Inventaire          []string
+	PotionGratuiteRecue bool
 }
 
 func (c *Character) initCharactere(name string, class string) {
@@ -17,7 +18,7 @@ func (c *Character) initCharactere(name string, class string) {
 	c.Class = class
 	c.Pv = 50
 	c.Pvmax = 100
-	c.Inventaire = map[string]int{potionLife: 5}
+	c.Inventaire = []string{}
 }
 
 func (c *Character) displayInfo() {
