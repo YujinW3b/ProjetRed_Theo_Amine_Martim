@@ -1,140 +1,64 @@
-```
-   █████╗ ██╗   ██╗██████╗ ███████╗███████╗███████╗██████╗
-  ██╔══██╗██║   ██║██╔══██╗██╔════╝██╔════╝██╔════╝██╔══██╗
-  ███████║██║   ██║██████╔╝█████╗  █████╗  █████╗  ██████╔╝
-  ██╔══██║██║   ██║██╔══██╗██╔══╝  ██╔══╝  ██╔══╝  ██╔══██╗
-  ██║  ██║╚██████╔╝██████╔╝███████╗██║     ███████╗██║  ██║
-  ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝
-        une nuit au dernier camp avant les Marches Grises
-```
-
 # AUBEFER
 
-**Jeu de rôle au tour par tour, jouable entièrement au clavier dans un terminal.**
-Projet RED — Ymmersion — Ynov Campus Aix, B1 Informatique.
+Mini-jeu en ligne de commande écrit en Go. Projet RED, B1 Informatique, Ynov Campus Aix.
 
----
+Vous êtes une recrue au camp d'entraînement d'Aubefer. Vous choisissez un nom et un
+lignage, vous équipez votre personnage, vous achetez chez le Régisseur, vous forgez,
+et vous vous battez contre le gobelin d'entraînement. Tout se joue au clavier, dans
+le terminal.
 
-## Le jeu
+## Lancer le jeu
 
-Aubefer est le dernier camp fortifié avant les Marches Grises. Toute recrue y passe **une seule nuit**.
+Il faut Go 1.21 ou plus.
 
-Au crépuscule, on lui donne un nom, un lignage, une besace et cent pièces d'or. Avant l'aube, elle doit avoir appris à se soigner, à négocier avec le Régisseur, à faire chauffer la Forge, et surtout à tenir debout face au gobelin du terrain d'exercice.
+```
+git clone https://github.com/YujinW3b/ProjetRed_Theo_Amine_Martim.git
+cd ProjetRed_Theo_Amine_Martim
+go run ./src
+```
 
-Au matin, le Sergent tranche : la recrue part vers le nord, ou elle rentre chez elle.
+## Le camp
 
-### Ce qu'on peut faire
+Le menu principal est le camp. Chaque option est un lieu.
 
-| Lieu du camp | Ce qu'on y fait |
-|---|---|
-| **Ta fiche de recrue** | Consulter ses statistiques, son or, ses sorts et son équipement |
-| **Ta besace** | Utiliser ses objets : potions, livre de sort, pièces d'équipement |
-| **La tente du Régisseur** | Acheter potions, matériaux, grimoires et besaces renforcées |
-| **La Forge** | Fabriquer chapeau, tunique et bottes de l'aventurier à partir de matériaux |
-| **Le terrain d'exercice** | Affronter le gobelin d'entraînement au tour par tour |
-| **Les graffitis de la palissade** | Lire ce que les recrues des autres nuits ont gravé dans le bois |
+```
+[1] Ta fiche de recrue        [4] La Forge
+[2] Ta besace                 [5] Le terrain d'exercice
+[3] La tente du Régisseur     [6] Les graffitis de la palissade
+                              [0] Quitter
+```
 
-### Les trois lignages
+On tape le chiffre, on valide. Toute autre saisie fait râler le Sergent, rien ne plante.
 
-| Lignage | PV max | PV de départ |
+## Les lignages
+
+| Lignage | PV max | PV au départ |
 |---|---|---|
 | Humain | 100 | 50 |
 | Elfe | 80 | 40 |
 | Nain | 120 | 60 |
 
----
+Une recrue commence niveau 1, avec 100 pièces d'or, le sort Coup de poing et une
+besace de 10 emplacements. Les PV de départ valent la moitié du maximum : le Sergent
+ne donne jamais une recrue à pleine forme.
 
-## Installation
-
-### Prérequis
-
-- **Go 1.21 ou supérieur** — vérifier avec `go version`
-- Un terminal supportant les couleurs ANSI (Terminal macOS, GNOME Terminal, Windows Terminal, iTerm2…)
-- Git
-
-### Récupérer le projet
-
-```bash
-git clone <url-du-depot> projet-red_AUBEFER
-cd projet-red_AUBEFER
-```
-
----
-
-## Lancement
-
-Depuis la racine du projet :
-
-```bash
-go run ./src
-```
-
-Ou en compilant un exécutable :
-
-```bash
-go build -o aubefer ./src
-./aubefer
-```
-
-Sous Windows :
-
-```powershell
-go build -o aubefer.exe ./src
-.\aubefer.exe
-```
-
-### Comment jouer
-
-Tout se joue au clavier. À chaque écran, le jeu propose des choix numérotés : on tape le numéro et on valide avec Entrée. `0` ramène toujours à l'écran précédent, ou quitte le camp depuis le feu de camp.
-
-Une saisie incorrecte ne fait jamais planter le jeu : le Sergent vous le fera remarquer, et vous pourrez recommencer.
-
----
-
-## Structure du dépôt
+## Organisation du code
 
 ```
-projet-red_AUBEFER/
-├── README.md        ← ce fichier
-├── go.mod
-├── docs/            ← conception, spécifications, gestion de projet, soutenance
-└── src/             ← code source du jeu
+src/        tout le code Go, en package main
+docs/       le document de gestion de projet
+go.mod      module aubefer
 ```
 
-Le dossier `docs/` contient :
-
-| Fichier | Contenu |
-|---|---|
-| `00-GESTION-DE-PROJET.md` | Équipe, répartition, planning, méthode Git, risques |
-| `01-GAME-DESIGN.md` | Univers, personnages, économie, boucle de jeu |
-| `02-SPECIFICATIONS.md` | Les 22 tâches et 6 missions, avec leurs critères de validation |
-| `03-ARCHITECTURE.md` | Découpage des fichiers et décisions techniques |
-| `04-SOUTENANCE.md` | Scénario de démonstration et préparation de l'oral |
-| `05-GRILLE-AUTO-EVALUATION.md` | Vérification face à la grille d'évaluation |
-
----
+Un fichier par domaine, pour éviter que deux personnes travaillent au même endroit :
+`character.go`, `menu.go`, `creation.go`, `inventory.go`, `merchant.go`,
+`blacksmith.go`, `equipment.go`, `combat.go`, `monster.go`, `items.go`, `display.go`.
 
 ## L'équipe
 
-| | Rôle | Périmètre |
-|---|---|---|
-| **Théo Sugier** | Lead technique | Menus, création de personnage, équipement, combat au tour par tour |
-| **Amine** | Développeur | Inventaire, objets, marchand, forge, sorts |
-| **Martim** | Développeur | Structures de données, affichage, habillage ASCII du jeu |
+- Théo Sugier — noyau, menu, création de personnage, combat
+- Amine — or, marchand, forge, potions et sorts
+- Martim — structures, affichage, équipement, monstre
 
-Suivi du projet sur Trello — une carte par tâche du sujet, une Pull Request relue par tâche.
-
----
-
-## État d'avancement
-
-| Partie | Avancement |
-|---|---|
-| Partie 1 — Personnage & fonctionnalités de base | 0 / 12 |
-| Partie 2 — Économie & fabrication | 0 / 6 |
-| Partie 3 — Combat au tour par tour | 0 / 4 |
-| Missions bonus | 0 / 6 |
-
----
-
-*Projet réalisé dans le cadre de l'Ymmersion — Ynov Campus Aix.*
+Suivi des tâches sur Trello, une carte par tâche du sujet. Une branche et une pull
+request par tâche, relue par un autre membre avant fusion.
