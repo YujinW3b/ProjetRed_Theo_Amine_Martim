@@ -17,8 +17,8 @@ func (c *Character) initCharacter(name string, class string, level int, pvmax in
 	c.Name = name
 	c.Class = class
 	c.Level = level
-	c.Pvmax = pvmax
-	c.Pv = pv
+	c.Pvmax = 100
+	c.Pv = 50
 	c.Inventaire = inventaire
 }
 
