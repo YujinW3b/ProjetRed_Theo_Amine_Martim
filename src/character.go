@@ -7,25 +7,44 @@ const potionLife = "potions 2 vie"
 type Character struct {
 	Name       string
 	Class      string
+	Level      int
 	Pvmax      int
 	Pv         int
-	Inventaire map[string]int
+	Inventaire []string
 }
 
-func (c *Character) initCharactere(name string, class string) {
+func (c *Character) initCharacter(name string, class string, level int, pvmax int, pv int, inventaire []string) {
 	c.Name = name
 	c.Class = class
-	c.Pv = 50
-	c.Pvmax = 100
-	c.Inventaire = map[string]int{potionLife: 5}
+	c.Level = level
+	c.Pvmax = pvmax
+	c.Pv = pv
+	c.Inventaire = inventaire
 }
 
 func (c *Character) displayInfo() {
 	fmt.Println("=== info ===")
 	fmt.Printf("\tnom : %s\n", c.Name)
 	fmt.Printf("\tClasse : %s\n", c.Class)
+	fmt.Printf("\tNiveau : %d\n", c.Level)
 	fmt.Printf("\tPvmax : %d\n", c.Pvmax)
 	fmt.Printf("\tPv : %d\n", c.Pv)
+	fmt.Printf("\tInventaire : %v\n", c.Inventaire)
+}
+
+func main() {
+	var character Character
+
+	character.initCharacter(
+		"Hero",
+		"Elfe",
+		1,
+		100,
+		40,
+		[]string{"Potion", "Potion", "Potion"},
+	)
+
+	character.displayInfo()
 }
 
 // MARTIM - T01 Character, T02 initCharacter, T03 displayInfo, T08 isDead,
