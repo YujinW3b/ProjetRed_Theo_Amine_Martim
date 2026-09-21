@@ -18,3 +18,21 @@ func isNameValid(name string) bool {
 
 	return true // sinon si maj ou min on return true
 }
+
+func capitalize(name string) string {
+	b := []rune(name) // une string se modifie pas, je la copie dans un slice
+
+	for i := 0; i < len(b); i++ {
+		if i == 0 {
+			if b[i] >= 'a' && b[i] <= 'z' { // l'initiale est minuscule ? je la monte
+				b[i] = b[i] - 32
+			}
+		} else {
+			if b[i] >= 'A' && b[i] <= 'Z' { // deja une majuscule ? je la descends
+				b[i] = b[i] + 32
+			}
+		}
+	}
+
+	return string(b) // je recolle le slice en string
+}
