@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// Const potion
 const potionLife = "potions 2 vie"
 
 type Character struct {
