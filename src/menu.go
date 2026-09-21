@@ -34,6 +34,7 @@ func afficherMenu() {
 	fmt.Println()
 	fmt.Println("   1. Ta fiche de recrue")
 	fmt.Println("   2. Ta besace")
+	fmt.Println("   3. La tente du Regisseur")
 	fmt.Println("   0. Quitter le camp")
 	fmt.Println()
 	fmt.Print("   Ton choix : ") // print et pas println car je veux que le joueur taper a coté et pas en dessous
@@ -49,6 +50,8 @@ func menuPrincipal() {
 			joueur.displayInfo()
 		case "2":
 			fmt.Println("   [temporaire] ta besace")
+		case "3":
+			accessMarchand(&joueur)
 		case "0":
 			fmt.Println("   Le Sergent hoche la tete. A demain, recrue.")
 			return // return et pas break car break fais que sortrir switch pas dla boucle
