@@ -33,7 +33,25 @@ func (c *Character) displayInfo() {
 	fmt.Printf("\tPvmax : %d\n", c.Pvmax)
 	fmt.Printf("\tPv : %d\n", c.Pv)
 	fmt.Printf("\tInventaire : %v\n", c.Inventaire)
-	fmt.Printf("\tCasque : %v\n",c.Equipment.Tete)
-	fmt.Printf("\tBuste : %v\n",c.Equipment.Torse)
-	fmt.Printf("\tBottes : %v\n",c.Equipment.Pieds)
+	fmt.Printf("\tCasque : %v\n", c.Equipment.Tete)
+	fmt.Printf("\tBuste : %v\n", c.Equipment.Torse)
+	fmt.Printf("\tBottes : %v\n", c.Equipment.Pieds)
+}
+
+type Monster struct {
+	Name   string
+	Pvmax  int
+	Pv     int
+	Attack int
+}
+
+func initGoblin() Monster {
+	goblin := Monster{}
+
+	goblin.Name = "Gobelin d'entrainement"
+	goblin.Pvmax = 40
+	goblin.Pv = goblin.Pvmax
+	goblin.Attack = 5
+
+	return goblin
 }
