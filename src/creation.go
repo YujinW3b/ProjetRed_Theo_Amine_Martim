@@ -51,18 +51,18 @@ func askName() string {
 	}
 }
 
-func askLineage() string {
+func askLineage() string { // func qui renvoie un string
 	for {
-		fmt.Println()
+		fmt.Println() // on aficche le menu avec les choix
 		fmt.Println("   Ton lignage, recrue :")
 		fmt.Println("   1. Humain  (100 PV)")
 		fmt.Println("   2. Elfe    (80 PV)")
 		fmt.Println("   3. Nain    (120 PV)")
 		fmt.Print("   Ton choix : ")
 
-		choix := lireChoix()
+		choix := lireChoix() // on lis les choix
 
-		switch choix {
+		switch choix { // swtich case comme dans menu.go pour choisi et return quelques choses selon se quon a choisi
 		case "1":
 			fmt.Println("   Humain. Ce que le Sergent appelle la moyenne.")
 			return "Humain"
