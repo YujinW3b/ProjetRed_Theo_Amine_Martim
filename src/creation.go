@@ -50,3 +50,30 @@ func askName() string {
 		fmt.Println("   Des lettres, rien d'autre. Pas d'accent.") // sinon on renvoie cemessage
 	}
 }
+
+func askLineage() string {
+	for {
+		fmt.Println()
+		fmt.Println("   Ton lignage, recrue :")
+		fmt.Println("   1. Humain  (100 PV)")
+		fmt.Println("   2. Elfe    (80 PV)")
+		fmt.Println("   3. Nain    (120 PV)")
+		fmt.Print("   Ton choix : ")
+
+		choix := lireChoix()
+
+		switch choix {
+		case "1":
+			fmt.Println("   Humain. Ce que le Sergent appelle la moyenne.")
+			return "Humain"
+		case "2":
+			fmt.Println("   Elfe. Fragile, mais on dit qu'ils apprennent vite.")
+			return "Elfe"
+		case "3":
+			fmt.Println("   Nain. Ca encaisse, un nain.")
+			return "Nain"
+		default: // prend tout reste ( vide.. ) et fais renvoie une rep
+			fmt.Println("   Parle plus clairement, recrue.")
+		}
+	}
+}
