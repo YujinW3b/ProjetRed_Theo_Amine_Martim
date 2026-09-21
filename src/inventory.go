@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func accessInventory(c *Character, item string) bool {
+func accessInventory(c *Character, item string)  {
 	fmt.Println("=== Affichage de l'inventaire ===")
 	for itemIndex, itemName := range c.Inventaire {
 		fmt.Printf("\t %d - %s\n", (itemIndex + 1), itemName)
@@ -23,6 +23,7 @@ func accessInventory(c *Character, item string) bool {
 			fmt.Println("Erreur dans le choix...")
 		}
 	}
+	
 }
 
 func addInventory(c *Character, item string) bool {
