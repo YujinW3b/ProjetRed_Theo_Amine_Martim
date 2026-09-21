@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func isNameValid(name string) bool {
 	if len(name) == 0 { // verifie si le joueur a juste taper un espace ou a vraiment ecris
 		return false // return false si jsute taper espace
@@ -35,4 +37,43 @@ func capitalize(name string) string {
 	}
 
 	return string(b) // je recolle le slice en string
+}
+
+func askName() string {
+	for {
+		fmt.Print("   Ton nom, recrue : ") // demande le nom
+		name := lireChoix()                //  init var nomée name avec lirechoix dedans
+
+		if isNameValid(name) { // verifie que le name est valide
+			return capitalize(name) // si il est valide on le retourne formaté
+		}
+		fmt.Println("   Des lettres, rien d'autre. Pas d'accent.") // sinon on renvoie cemessage
+	}
+}
+
+func askLineage() string { // func qui renvoie un string
+	for {
+		fmt.Println() // on aficche le menu avec les choix
+		fmt.Println("   Ton lignage, recrue :")
+		fmt.Println("   1. Humain  (100 PV)")
+		fmt.Println("   2. Elfe    (80 PV)")
+		fmt.Println("   3. Nain    (120 PV)")
+		fmt.Print("   Ton choix : ")
+
+		choix := lireChoix() // on lis les choix
+
+		switch choix { // swtich case comme dans menu.go pour choisi et return quelques choses selon se quon a choisi
+		case "1":
+			fmt.Println("   Humain. Ce que le Sergent appelle la moyenne.")
+			return "Humain"
+		case "2":
+			fmt.Println("   Elfe. Fragile, mais on dit qu'ils apprennent vite.")
+			return "Elfe"
+		case "3":
+			fmt.Println("   Nain. Ca encaisse, un nain.")
+			return "Nain"
+		default: // prend tout reste ( vide.. ) et fais renvoie une rep
+			fmt.Println("   Parle plus clairement, recrue.")
+		}
+	}
 }
