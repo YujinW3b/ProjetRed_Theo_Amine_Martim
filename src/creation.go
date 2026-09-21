@@ -77,3 +77,21 @@ func askLineage() string { // func qui renvoie un string
 		}
 	}
 }
+
+func characterCreation() {
+	name := askName()       // on range la rep de la fonction dans une var
+	lineage := askLineage() // pareil ici
+
+	pvmax := 0       // on init pvmax a 0
+	switch lineage { // selon le choxi deja fais au dessus on modifie la valeur de pvmax par le vrai nombre de pv correspondant
+	case "Humain":
+		pvmax = 100
+	case "Elfe":
+		pvmax = 80
+	case "Nain":
+		pvmax = 120
+	}
+
+	// je demarre a moitie de vie le Sergent donne jamais une recrue en pleine forme
+	joueur.initCharacter(name, lineage, 1, pvmax, pvmax/2, []string{"Potion de vie", "Potion de vie", "Potion de vie"})
+}
