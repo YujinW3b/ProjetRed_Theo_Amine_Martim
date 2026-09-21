@@ -44,14 +44,3 @@ type Monster struct {
 	Pv     int
 	Attack int
 }
-
-func initGoblin() Monster {
-	goblin := Monster{}
-
-	goblin.Name = "Gobelin d'entrainement"
-	goblin.Pvmax = 40
-	goblin.Pv = goblin.Pvmax
-	goblin.Attack = 5
-
-	return goblin
-}
