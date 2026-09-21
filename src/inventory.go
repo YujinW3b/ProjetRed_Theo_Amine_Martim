@@ -2,6 +2,29 @@ package main
 
 import "fmt"
 
+func accessInventory(c *Character, item string) bool {
+	fmt.Println("=== Affichage de l'inventaire ===")
+	for itemIndex, itemName := range c.Inventaire {
+		fmt.Printf("\t %d - %s\n", (itemIndex + 1), itemName)
+	}
+	if len(c.Inventaire) == 0 {
+		fmt.Println("Inventaire vide ...")
+	}
+	fmt.Printf("%d/%d\n", len(c.Inventaire), 10)
+	for true {
+		fmt.Println("0 - retour au feu de champs.")
+		fmt.Println("Votre choix ?")
+		var chose int
+		fmt.Scan(&chose)
+		switch chose {
+		case 0:
+			break
+		default:
+			fmt.Println("Erreur dans le choix...")
+		}
+	}
+}
+
 func addInventory(c *Character, item string) bool {
 	if len(c.Inventaire) >= 10 {
 		fmt.Println("Inventaire plein ! Impossible d'ajouter :", item)
