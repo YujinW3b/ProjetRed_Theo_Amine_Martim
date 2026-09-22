@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+<<<<<<< HEAD
 func findItemIndex(inventaire []string, nom string) int {
 	for i, item := range inventaire {
 		if item == nom {
@@ -13,6 +14,30 @@ func findItemIndex(inventaire []string, nom string) int {
 
 func checkInventoryLimit(c *Character) bool {
 	return len(c.Inventaire) < c.
+=======
+func accessInventory(c *Character, item string) {
+	fmt.Println("=== Affichage de l'inventaire ===")
+	for itemIndex, itemName := range c.Inventaire {
+		fmt.Printf("\t %d - %s\n", (itemIndex + 1), itemName)
+	}
+	if len(c.Inventaire) == 0 {
+		fmt.Println("Inventaire vide ...")
+	}
+	fmt.Printf("%d/%d\n", len(c.Inventaire), 10)
+	for true {
+		fmt.Println("0 - retour au feu de champs.")
+		fmt.Println("Votre choix ?")
+		var chose int
+		fmt.Scan(&chose)
+		switch chose {
+		case 0:
+			break
+		default:
+			fmt.Println("Erreur dans le choix...")
+		}
+	}
+
+>>>>>>> b0291527d92ee02d0eb4455c246335f6dc88cd39
 }
 
 func addInventory(c *Character, item string) bool {
