@@ -15,7 +15,7 @@ const (
 	itemTuniqueAventurier = "Tunique de l'aventurier"
 	itemBottesAventurier  = "Bottes de l'aventurier"
 
-	spellCoupDePoing = "Coup de poing"
+	spellCoupDePoing = "Coup de poing
 	spellBouleDeFeu  = "Boule de Feu"
 	spellSouffleDuSergent = "Souffle du Sergent"
 )
