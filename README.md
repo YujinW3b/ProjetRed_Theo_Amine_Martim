@@ -14,7 +14,7 @@ Il faut Go 1.21 ou plus.
 ```
 git clone https://github.com/YujinW3b/ProjetRed_Theo_Amine_Martim.git
 cd ProjetRed_Theo_Amine_Martim
-go run ./src
+go run main.go
 ```
 
 ## Le camp
@@ -45,7 +45,8 @@ ne donne jamais une recrue à pleine forme.
 ## Organisation du code
 
 ```
-src/        tout le code Go, en package main
+main.go     lance le jeu
+src/        tout le code du jeu, en package src
 docs/       le document de gestion de projet
 go.mod      module aubefer
 ```
