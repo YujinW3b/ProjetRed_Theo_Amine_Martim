@@ -2,18 +2,21 @@ package src
 
 import "fmt"
 
-// Const potions
-const potionLife = "potions 2 vie"
+const inventaireCapaciteInitiale = 10
 
 type Character struct {
-	Name                string
-	Class               string
-	Level               int
-	Pvmax               int
-	Pv                  int
-	Inventaire          []string
-	PotionGratuiteRecue bool
-	Equipment           Equipment
+	Name                  string
+	Class                 string
+	Level                 int
+	Pvmax                 int
+	Pv                    int
+	Inventaire            []string
+	InventaireMax         int
+	Skill                 []string
+	Or                    int
+	PotionGratuiteRecue   bool
+	InventoryUpgradesUsed int
+	Equipment             Equipment
 }
 
 func (c *Character) initCharacter(name string, class string, level int, pvmax int, pv int, inventaire []string) {
@@ -23,6 +26,11 @@ func (c *Character) initCharacter(name string, class string, level int, pvmax in
 	c.Pvmax = pvmax
 	c.Pv = pv
 	c.Inventaire = inventaire
+	c.InventaireMax = inventaireCapaciteInitiale
+	c.Skill = []string{spellCoupDePoing}
+	c.Or = 100
+	c.PotionGratuiteRecue = false
+	c.InventoryUpgradesUsed = 0
 }
 
 func (c *Character) displayInfo() {
@@ -32,15 +40,29 @@ func (c *Character) displayInfo() {
 	fmt.Printf("\tNiveau : %d\n", c.Level)
 	fmt.Printf("\tPvmax : %d\n", c.Pvmax)
 	fmt.Printf("\tPv : %d\n", c.Pv)
-	fmt.Printf("\tInventaire : %v\n", c.Inventaire)
+	fmt.Printf("\tOr : %d\n", c.Or)
+	fmt.Printf("\tInventaire (%d/%d) : %v\n", len(c.Inventaire), c.InventaireMax, c.Inventaire)
+	fmt.Printf("\tSorts connus : %v\n", c.Skill)
 	fmt.Printf("\tCasque : %v\n", c.Equipment.Tete)
 	fmt.Printf("\tBuste : %v\n", c.Equipment.Torse)
 	fmt.Printf("\tBottes : %v\n", c.Equipment.Pieds)
 }
 
-type Monster struct {
-	Name   string
-	Pvmax  int
-	Pv     int
-	Attack int
+func knowsSkill(c *Character, spell string) bool {
+	for _, s := range c.Skill {
+		if s == spell {
+			return true
+		}
+	}
+	return false
+}
+
+func spellBook(c *Character) bool {
+	if knowsSkill(c, spellBouleDeFeu) {
+		fmt.Println("Sergent : « Tu sais déjà faire ça. »")
+		return false
+	}
+	c.Skill = append(c.Skill, spellBouleDeFeu)
+	fmt.Println("Sergent : « Nouveau sort appris : Boule de Feu ! »")
+	return true
 }
