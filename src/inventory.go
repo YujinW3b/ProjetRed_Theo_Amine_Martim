@@ -22,7 +22,6 @@ func accessInventory(c *Character, item string) {
 		fmt.Scan(&chose)
 		switch chose {
 		case 0:
-			break
 		default:
 			fmt.Println("Erreur dans le choix...")
 		}
