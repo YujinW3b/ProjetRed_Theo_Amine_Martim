@@ -1,4 +1,4 @@
-package main
+package src
 
 import "fmt"
 
@@ -31,4 +31,20 @@ func askCombatAction() string {
 			fmt.Println("   Parle plus clairement, recrue.")
 		}
 	}
+}
+
+func goblinPattern(goblin Monster, turn int) {
+	if turn%3 == 0 { // le critere T20 veut un message pour attaque renforcee tt les 3 tour 
+		fmt.Println("   Le gobelin prend son elan... attaque renforcee !")
+	}
+
+	damage := goblinDamage(goblin.Attack, turn) // init damage avec attack et nombre tour
+	joueur.Pv = joueur.Pv - damage // pv joueur apres attaque = pv joeuur - damage
+
+	if joueur.Pv < 0 { // jamais de PV negatifs a l'ecran on met a 0 si inferieur a 0
+		joueur.Pv = 0
+	}
+
+	fmt.Println("  ", goblin.Name, "inflige à", joueur.Name, damage, "de dégâts") 
+	fmt.Println("  ", joueur.Name, "PV :", joueur.Pv, "/", joueur.Pvmax)
 }
