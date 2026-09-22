@@ -17,7 +17,7 @@ const (
 
 	spellCoupDePoing = "Coup de poing"
 	spellBouleDeFeu  = "Boule de Feu"
-	spellSouffleDuSergent = "Souffle du Sergent
+	spellSouffleDuSergent = "Souffle du Sergent"
 )
 
 func findItemIndex(inventaire []string, nom string) int {
