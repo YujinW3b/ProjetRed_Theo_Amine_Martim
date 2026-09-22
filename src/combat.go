@@ -50,3 +50,21 @@ func goblinPattern(goblin Monster, turn int) {
 
 	isDead(&joueur) // si le joueur est tombe a 0 il ressuscite a la moitie 50
 }
+
+func characterTurn(goblin *Monster) {
+	action := askCombatAction()
+
+	switch action {
+	case "attack":
+		goblin.Pv = goblin.Pv - 5 // attaque basique : toujours 5, pas de calcul
+		if goblin.Pv < 0 {
+			goblin.Pv = 0
+		}
+		fmt.Println()
+		fmt.Println(cJaune + "     o==[]::::::::::::>" + cReset)
+		fmt.Println("  ", joueur.Name, "utilise Attaque basique et inflige 5 dégâts à", goblin.Name)
+		fmt.Println("  ", goblin.Name, "PV :", goblin.Pv, "/", goblin.Pvmax)
+	case "inventory":
+		takePot(&joueur) // ouvrir la besace consomme le tour, c'est voulu
+	}
+}
