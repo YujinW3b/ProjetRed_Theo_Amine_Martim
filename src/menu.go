@@ -6,6 +6,16 @@ import (
 	"os"
 )
 
+// codes couleur du terminal : je les colle devant le texte, et cReset revient a la normale
+var (
+	cReset = "\033[0m"
+	cGras  = "\033[1m"
+	cGris  = "\033[2m"
+	cRouge = "\033[31m"
+	cJaune = "\033[33m"
+	cCyan  = "\033[36m"
+)
+
 var lecteur = bufio.NewScanner(os.Stdin) // un seul scanner pour tout le jeu
 
 func retireEspaces(s string) string {
@@ -30,14 +40,20 @@ func lireChoix() string {
 
 func afficherMenu() {
 	fmt.Println()
-	fmt.Println("   L E   C A M P   D ' A U B E F E R")
+	fmt.Println(cRouge + "              )" + cReset)
+	fmt.Println(cRouge + "         (   ) (" + cReset + "        " + cGras + "L E   C A M P   D ' A U B E F E R" + cReset)
+	fmt.Println(cJaune + "          ) (  )" + cReset)
+	fmt.Println(cJaune + "         _(____)_" + cReset + "       " + cGris + "Le feu crepite. Le Sergent t'attend." + cReset)
+	fmt.Println(cGris + "        '--------'" + cReset)
 	fmt.Println()
-	fmt.Println("   1. Ta fiche de recrue")
-	fmt.Println("   2. Ta besace")
-	fmt.Println("   3. La tente du Regisseur")
-	fmt.Println("   0. Quitter le camp")
+	fmt.Println(cGris + "   ---------------------------------------------" + cReset)
+	fmt.Println("     " + cCyan + "[1]" + cReset + "  Ta fiche de recrue")
+	fmt.Println("     " + cCyan + "[2]" + cReset + "  Ta besace")
+	fmt.Println("     " + cCyan + "[3]" + cReset + "  La tente du Regisseur")
+	fmt.Println("     " + cCyan + "[0]" + cReset + "  Quitter le camp")
+	fmt.Println(cGris + "   ---------------------------------------------" + cReset)
 	fmt.Println()
-	fmt.Print("   Ton choix : ") // print et pas println car je veux que le joueur taper a coté et pas en dessous
+	fmt.Print("     Ton choix : ") // print et pas println car je veux que le joueur tape a cote
 }
 
 func menuPrincipal() {
