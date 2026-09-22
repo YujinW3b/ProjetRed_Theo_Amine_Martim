@@ -48,5 +48,5 @@ func goblinPattern(goblin Monster, turn int) {
 	fmt.Println("  ", goblin.Name, "inflige à", joueur.Name, damage, "de dégâts")
 	fmt.Println("  ", joueur.Name, "PV :", joueur.Pv, "/", joueur.Pvmax)
 
-	isDead(&joueur) // si le joueur est tombe a 0, il ressuscite a la moitie
+	isDead(&joueur) // si le joueur est tombe a 0 il ressuscite a la moitie 50
 }

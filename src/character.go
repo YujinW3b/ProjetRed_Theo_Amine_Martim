@@ -19,6 +19,13 @@ type Character struct {
 	Equipment             Equipment
 }
 
+type Monster struct {
+	Name   string
+	Pvmax  int
+	Pv     int
+	Attack int
+}
+
 func (c *Character) initCharacter(name string, class string, level int, pvmax int, pv int, inventaire []string) {
 	c.Name = name
 	c.Class = class
