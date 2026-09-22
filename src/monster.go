@@ -1,5 +1,5 @@
 package src
-
+//gobelin
 func initGoblin() Monster {
 	goblin := Monster{}
 
