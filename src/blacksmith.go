@@ -1,4 +1,4 @@
-package main
+package src
 
 // AMINE - T15 la Forge : recettes, controles, fabrication.
 // Ordre : materiaux -> or -> place -> puis consommer, debiter, ajouter.

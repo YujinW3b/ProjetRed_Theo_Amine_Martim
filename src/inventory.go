@@ -1,7 +1,8 @@
-package main
+package src
 
 import "fmt"
 
+<<<<<<< HEAD
 func findItemIndex(inventaire []string, nom string) int {
 	for i, item := range inventaire {
 		if item == nom {
@@ -15,6 +16,12 @@ func checkInventoryLimit(c *Character) bool {
 	return len(c.Inventaire) < c.Inventaire
 }
 
+=======
+func checkInventoryLimit(c *Character) bool {
+	return len(c.Inventaire) < 10 // T18 : a remplacer par une capacite stockee dans Character
+}
+
+>>>>>>> e4b247ede91c150e006bf6d8de2eb9938c0cd736
 func accessInventory(c *Character, item string) {
 	fmt.Println("=== Affichage de l'inventaire ===")
 	for itemIndex, itemName := range c.Inventaire {
@@ -36,6 +43,10 @@ func accessInventory(c *Character, item string) {
 			fmt.Println("Erreur dans le choix...")
 		}
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> e4b247ede91c150e006bf6d8de2eb9938c0cd736
 }
 
 func addInventory(c *Character, item string) bool {

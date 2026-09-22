@@ -1,4 +1,4 @@
-package main
+package src
 
 func initGoblin() Monster {
 	goblin := Monster{}
