@@ -17,6 +17,7 @@ const (
 
 	spellCoupDePoing = "Coup de poing"
 	spellBouleDeFeu  = "Boule de Feu"
+	spellSouffleDuSergent = "Souffle du Sergent"
 )
 
 func findItemIndex(inventaire []string, nom string) int {
@@ -120,6 +121,9 @@ func accessInventory(c *Character) {
 		switch itemChoisi {
 		case itemPotionDeVie:
 			takePot(c)
+		case itemPotionDePoison:
+			removeInventory(c, itemPotionDePoison)
+			poisonPot(c)
 		case itemLivreBouleDeFeu:
 			if spellBook(c) {
 				removeInventory(c, itemLivreBouleDeFeu)
