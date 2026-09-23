@@ -5,6 +5,7 @@ import "fmt"
 const (
 	itemPotionDeVie       = "Potion de vie"
 	itemPotionDePoison    = "Potion de poison"
+	itemPotionDeMana      = "Potion de mana"
 	itemLivreBouleDeFeu   = "Livre de Sort : Boule de Feu"
 	itemFourrureDeLoup    = "Fourrure de Loup"
 	itemPeauDeTroll       = "Peau de Troll"
@@ -15,8 +16,8 @@ const (
 	itemTuniqueAventurier = "Tunique de l'aventurier"
 	itemBottesAventurier  = "Bottes de l'aventurier"
 
-	spellCoupDePoing = "Coup de poing"
-	spellBouleDeFeu  = "Boule de Feu"
+	spellCoupDePoing      = "Coup de poing"
+	spellBouleDeFeu       = "Boule de Feu"
 	spellSouffleDuSergent = "Souffle du Sergent"
 )
 
@@ -80,6 +81,24 @@ func takePot(c *Character) {
 	}
 }
 
+func takeMana(c *Character) {
+	i := findItemIndex(c.Inventaire, itemPotionDeMana)
+
+	switch {
+	case i == -1:
+		fmt.Println("Sergent : « Ta besace est VIDE, pas de potion de mana ! »")
+	case c.Mana >= c.ManaMax:
+		fmt.Println("Sergent : « Mana au max, on ne gâche pas une potion ! »")
+	default:
+		removeInventory(c, itemPotionDeMana)
+		c.Mana += 20
+		if c.Mana > c.ManaMax {
+			c.Mana = c.ManaMax
+		}
+		fmt.Printf("Sergent : « Mana regagné ! Mana : %d/%d »\n", c.Mana, c.ManaMax)
+	}
+}
+
 func upgradeInventorySlot(c *Character) bool {
 	if c.InventoryUpgradesUsed >= 3 {
 		fmt.Println("Sergent : « Le Régisseur n'a plus de besace renforcée à te vendre, recrue. »")
@@ -124,6 +143,8 @@ func accessInventory(c *Character) {
 		case itemPotionDePoison:
 			removeInventory(c, itemPotionDePoison)
 			poisonPot(c)
+		case itemPotionDeMana:
+			takeMana(c)
 		case itemLivreBouleDeFeu:
 			if spellBook(c) {
 				removeInventory(c, itemLivreBouleDeFeu)

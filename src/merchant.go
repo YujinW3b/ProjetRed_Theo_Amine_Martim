@@ -11,6 +11,8 @@ func prixMarchand(c *Character, item string) int {
 		return 3
 	case itemPotionDePoison:
 		return 6
+	case itemPotionDeMana:
+		return 5
 	case itemLivreBouleDeFeu:
 		return 25
 	case itemFourrureDeLoup:
@@ -70,6 +72,7 @@ func accessMarchand(c *Character) {
 		fmt.Printf("6 - Cuir de Sanglier (%d or)\n", prixMarchand(c, itemCuirDeSanglier))
 		fmt.Printf("7 - Plume de Corbeau (%d or)\n", prixMarchand(c, itemPlumeDeCorbeau))
 		fmt.Printf("8 - Augmentation d'inventaire (%d or) [%d/3 utilisées]\n", prixMarchand(c, itemAugmentationInv), c.InventoryUpgradesUsed)
+		fmt.Printf("9 - Potion de mana (%d or)\n", prixMarchand(c, itemPotionDeMana))
 		fmt.Println("0 - Retour au feu de camp.")
 		fmt.Printf("Votre or : %d\n", c.Or)
 		fmt.Println("Votre choix ?")
@@ -96,6 +99,8 @@ func accessMarchand(c *Character) {
 			acheterItem(c, itemPlumeDeCorbeau)
 		case 8:
 			acheterItem(c, itemAugmentationInv)
+		case 9:
+			acheterItem(c, itemPotionDeMana)
 		default:
 			fmt.Println("Sergent : « Erreur dans le choix... »")
 		}

@@ -5,19 +5,17 @@ import (
 	"time"
 )
 
-// isDead vérifie si le personnage est mort (0 PV ou moins).
-// Si oui, il ressuscite avec 50% de ses PV maximum.
 func isDead(c *Character) bool {
 	if c.Pv <= 0 {
 		fmt.Printf("%s est mort !\n", c.Name)
 		c.Pv = c.Pvmax / 2
+		fmt.Println("Sergent : « Debout, recrue. On ne meurt pas à l'exercice. »")
 		fmt.Printf("%s ressuscite avec %d/%d PV\n", c.Name, c.Pv, c.Pvmax)
 		return true
 	}
 	return false
 }
 
-// poisonPot inflige 10 dégâts par seconde pendant 3 secondes.
 func poisonPot(c *Character) {
 	fmt.Printf("%s boit la Potion de poison...\n", c.Name)
 

@@ -10,6 +10,8 @@ type Character struct {
 	Level                 int
 	Pvmax                 int
 	Pv                    int
+	Mana                  int
+	ManaMax               int
 	Inventaire            []string
 	InventaireMax         int
 	Skill                 []string
@@ -32,9 +34,11 @@ func (c *Character) initCharacter(name string, class string, level int, pvmax in
 	c.Level = level
 	c.Pvmax = pvmax
 	c.Pv = pv
+	c.ManaMax = 30
+	c.Mana = c.ManaMax
 	c.Inventaire = inventaire
 	c.InventaireMax = inventaireCapaciteInitiale
-	c.Skill = []string{spellCoupDePoing}
+	c.Skill = []string{spellCoupDePoing, spellSouffleDuSergent}
 	c.Or = 100
 	c.PotionGratuiteRecue = false
 	c.InventoryUpgradesUsed = 0
@@ -47,6 +51,7 @@ func (c *Character) displayInfo() {
 	fmt.Printf("\tNiveau : %d\n", c.Level)
 	fmt.Printf("\tPvmax : %d\n", c.Pvmax)
 	fmt.Printf("\tPv : %d\n", c.Pv)
+	fmt.Printf("\tMana : %d/%d\n", c.Mana, c.ManaMax)
 	fmt.Printf("\tOr : %d\n", c.Or)
 	fmt.Printf("\tInventaire (%d/%d) : %v\n", len(c.Inventaire), c.InventaireMax, c.Inventaire)
 	fmt.Printf("\tSorts connus : %v\n", c.Skill)
@@ -72,14 +77,4 @@ func spellBook(c *Character) bool {
 	c.Skill = append(c.Skill, spellBouleDeFeu)
 	fmt.Println("Sergent : « Nouveau sort appris : Boule de Feu ! »")
 	return true
-}
-func (c *Character) isDead() {
-if c.Pv<= 0 {
-	fmt.Println("Vous êtes mort ..., Revivre ?" )
-}	
-
-
-
-
-
 }

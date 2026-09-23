@@ -2,6 +2,11 @@ package src
 
 import "fmt"
 
+const (
+	coutManaCoupDePoing = 5
+	coutManaBouleDeFeu  = 10
+)
+
 func goblinDamage(attack int, turn int) int {
 	if turn%3 == 0 {
 		return attack * 2
@@ -33,6 +38,17 @@ func askCombatAction() string {
 	}
 }
 
+func coutManaAffiche(sort string) string {
+	switch sort {
+	case spellCoupDePoing:
+		return fmt.Sprintf(" (%d mana)", coutManaCoupDePoing)
+	case spellBouleDeFeu:
+		return fmt.Sprintf(" (%d mana)", coutManaBouleDeFeu)
+	default:
+		return ""
+	}
+}
+
 func castSpell(goblin *Monster) {
 	if len(joueur.Skill) == 0 {
 		fmt.Println("   Sergent : « T'as pas appris le moindre sort, recrue. »")
@@ -42,7 +58,7 @@ func castSpell(goblin *Monster) {
 	fmt.Println()
 	fmt.Println("   --- Sorts connus ---")
 	for i, spell := range joueur.Skill {
-		fmt.Printf("   %d. %s\n", i+1, spell)
+		fmt.Printf("   %d. %s%s\n", i+1, spell, coutManaAffiche(spell))
 	}
 	fmt.Print("   Ton choix : ")
 
@@ -57,6 +73,11 @@ func castSpell(goblin *Monster) {
 	sort := joueur.Skill[index-1]
 	switch sort {
 	case spellCoupDePoing:
+		if joueur.Mana < coutManaCoupDePoing {
+			fmt.Println("   Sergent : « Pas assez de mana, recrue ! »")
+			return
+		}
+		joueur.Mana -= coutManaCoupDePoing
 		goblin.Pv -= 8
 		if goblin.Pv < 0 {
 			goblin.Pv = 0
@@ -65,6 +86,11 @@ func castSpell(goblin *Monster) {
 		fmt.Println("  ", goblin.Name, "PV :", goblin.Pv, "/", goblin.Pvmax)
 
 	case spellBouleDeFeu:
+		if joueur.Mana < coutManaBouleDeFeu {
+			fmt.Println("   Sergent : « Pas assez de mana, recrue ! »")
+			return
+		}
+		joueur.Mana -= coutManaBouleDeFeu
 		goblin.Pv -= 18
 		if goblin.Pv < 0 {
 			goblin.Pv = 0
