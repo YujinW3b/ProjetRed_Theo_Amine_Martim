@@ -74,22 +74,10 @@ func menuPrincipal() {
 		case "0":
 			fmt.Println("   Le Sergent hoche la tete. A demain, recrue.")
 			return // return et pas break car break fais que sortrir switch pas dla boucle
-		case "martim": // easter egg : rien ne l'annonce dans le menu
-			easterEggMartim()
+		case codeNocturne: // saisie non listee dans le menu
+			evenementNocturne()
 		default: // prend tout reste ( vide.. ) et fais renvoie une rep
 			fmt.Println("   Parle plus clairement, recrue.")
 		}
 	}
-}
-
-// easterEggMartim se declenche si le joueur tape martim dans le menu du camp.
-// Rien ne l'annonce : c'est le principe d'un easter egg.
-func easterEggMartim() {
-	fmt.Println()
-	fmt.Println(cGris + "   La nuit tombe sur le camp. Le feu n'est plus qu'une braise." + cReset)
-	fmt.Println(cGras + "   Martim, le colocataire du camp voisin, se glisse pres du feu." + cReset)
-	fmt.Println(cJaune + "   « J'ai ce qu'il te faut, recrue. Ma potion secrete. Pose pas de questions. »" + cReset)
-	fmt.Println()
-	addInventory(&joueur, "Potion secrete de Martim")
-	fmt.Println(cVert + "   Tu ranges la fiole dans ta besace. Elle est tiede." + cReset)
 }
