@@ -9,6 +9,7 @@ type Character struct {
 	Class                 string
 	Level                 int
 	Pvmax                 int
+	PvmaxBase             int
 	Pv                    int
 	Mana                  int
 	ManaMax               int
@@ -32,6 +33,7 @@ func (c *Character) initCharacter(name string, class string, level int, pvmax in
 	c.Name = name
 	c.Class = class
 	c.Level = level
+	c.PvmaxBase = pvmax
 	c.Pvmax = pvmax
 	c.Pv = pv
 	c.ManaMax = 30
@@ -78,11 +80,12 @@ func spellBook(c *Character) bool {
 	fmt.Println("Sergent : « Nouveau sort appris : Boule de Feu ! »")
 	return true
 }
+
 func (c *Character) isDead() bool {
-if c.Pv> 0 { 
-	return false
-}		
-	fmt.Println("Vous êtes mort ..., Revivre ?" )
-c.Pv= c.Pvmax/2 
-return true 
+	if c.Pv > 0 {
+		return false
+	}
+	fmt.Println("Vous êtes mort ..., Revivre ?")
+	c.Pv = c.Pvmax / 2
+	return true
 }

@@ -49,10 +49,14 @@ func coutManaAffiche(sort string) string {
 	}
 }
 
-func castSpell(goblin *Monster) {
+// castSpell tente de lancer un sort. Retourne true si un sort a
+// effectivement été lancé (mana consommé / effet appliqué),
+// false si l'action a échoué ou a été annulée : dans ce cas
+// le tour du joueur n'est PAS consommé.
+func castSpell(goblin *Monster) bool {
 	if len(joueur.Skill) == 0 {
 		fmt.Println("   Sergent : « T'as pas appris le moindre sort, recrue. »")
-		return
+		return false
 	}
 
 	fmt.Println()
@@ -67,7 +71,7 @@ func castSpell(goblin *Monster) {
 	_, err := fmt.Sscanf(choix, "%d", &index)
 	if err != nil || index < 1 || index > len(joueur.Skill) {
 		fmt.Println("   Sergent : « Parle plus clairement, recrue. »")
-		return
+		return false
 	}
 
 	sort := joueur.Skill[index-1]
@@ -75,7 +79,7 @@ func castSpell(goblin *Monster) {
 	case spellCoupDePoing:
 		if joueur.Mana < coutManaCoupDePoing {
 			fmt.Println("   Sergent : « Pas assez de mana, recrue ! »")
-			return
+			return false
 		}
 		joueur.Mana -= coutManaCoupDePoing
 		goblin.Pv -= 8
@@ -84,11 +88,12 @@ func castSpell(goblin *Monster) {
 		}
 		fmt.Println("  ", joueur.Name, "utilise Coup de poing et inflige 8 dégâts à", goblin.Name)
 		fmt.Println("  ", goblin.Name, "PV :", goblin.Pv, "/", goblin.Pvmax)
+		return true
 
 	case spellBouleDeFeu:
 		if joueur.Mana < coutManaBouleDeFeu {
 			fmt.Println("   Sergent : « Pas assez de mana, recrue ! »")
-			return
+			return false
 		}
 		joueur.Mana -= coutManaBouleDeFeu
 		goblin.Pv -= 18
@@ -97,6 +102,7 @@ func castSpell(goblin *Monster) {
 		}
 		fmt.Println("  ", joueur.Name, "utilise Boule de Feu et inflige 18 dégâts à", goblin.Name)
 		fmt.Println("  ", goblin.Name, "PV :", goblin.Pv, "/", goblin.Pvmax)
+		return true
 
 	case spellSouffleDuSergent:
 		joueur.Pv += 20
@@ -106,9 +112,11 @@ func castSpell(goblin *Monster) {
 		fmt.Println("   Sergent : « DEBOUT, RECRUE ! »")
 		fmt.Println("  ", joueur.Name, "utilise Souffle du Sergent et récupère 20 PV")
 		fmt.Println("  ", joueur.Name, "PV :", joueur.Pv, "/", joueur.Pvmax)
+		return true
 
 	default:
 		fmt.Println("   Sergent : « Ce sort ne fait rien pour l'instant, recrue. »")
+		return false
 	}
 }
 
@@ -127,10 +135,13 @@ func goblinPattern(goblin Monster, turn int) bool {
 	fmt.Println("  ", goblin.Name, "inflige à", joueur.Name, damage, "de dégâts")
 	fmt.Println("  ", joueur.Name, "PV :", joueur.Pv, "/", joueur.Pvmax)
 
-	return isDead(&joueur) // true si le joueur est tombe a 0 (il a ete ressuscite)
+	return joueur.isDead() // true si le joueur est tombe a 0 (il a ete ressuscite)
 }
 
-func characterTurn(goblin *Monster) {
+// characterTurn simule le tour du joueur. Retourne true si le tour
+// a réellement été consommé (une action a eu lieu), false si le
+// joueur doit reprendre la main immédiatement (sort annulé/bloqué).
+func characterTurn(goblin *Monster) bool {
 	action := askCombatAction()
 
 	switch action {
@@ -143,11 +154,14 @@ func characterTurn(goblin *Monster) {
 		fmt.Println(cJaune + "     o==[]::::::::::::>" + cReset)
 		fmt.Println("  ", joueur.Name, "utilise Attaque basique et inflige 5 dégâts à", goblin.Name)
 		fmt.Println("  ", goblin.Name, "PV :", goblin.Pv, "/", goblin.Pvmax)
+		return true
 	case "inventory":
 		takePot(&joueur)
+		return true
 	case "spell":
-		castSpell(goblin)
+		return castSpell(goblin)
 	}
+	return false
 }
 
 func trainingFight() {
@@ -162,11 +176,18 @@ func trainingFight() {
 		fmt.Println()
 		fmt.Println(cGris+"   ===== TOUR", turn, "====="+cReset) // nombre tour ecris
 
-		// le rappel des deux barres de vie a chaque tour
+		// le rappel des deux barres de vie et du mana a chaque tour
 		fmt.Println("   " + joueur.Name + " " + barreDeVie(joueur.Pv, joueur.Pvmax))
 		fmt.Println("   " + goblin.Name + " " + barreDeVie(goblin.Pv, goblin.Pvmax))
+		fmt.Printf("   %s Mana : %d/%d\n", joueur.Name, joueur.Mana, joueur.ManaMax)
 
-		characterTurn(&goblin)
+		actionReussie := characterTurn(&goblin)
+
+		if !actionReussie {
+			// Sort annulé ou bloqué (mana insuffisant) : le joueur
+			// reprend la main immédiatement, le gobelin ne joue pas.
+			continue
+		}
 
 		if goblin.Pv <= 0 { // le gobelin est tombe donc victoire on sort
 			fmt.Println()
