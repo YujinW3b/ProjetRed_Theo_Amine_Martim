@@ -73,13 +73,11 @@ func spellBook(c *Character) bool {
 	fmt.Println("Sergent : « Nouveau sort appris : Boule de Feu ! »")
 	return true
 }
-func (c *Character) isDead() {
-if c.Pv<= 0 {
+func (c *Character) isDead() bool {
+if c.Pv> 0 { 
+	return false
+}		
 	fmt.Println("Vous êtes mort ..., Revivre ?" )
-}	
-
-
-
-
-
+c.Pv= c.Pvmax/2 
+return true 
 }
