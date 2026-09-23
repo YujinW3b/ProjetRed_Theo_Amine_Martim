@@ -48,6 +48,7 @@ func afficherEcranTitre() {
 // Les lettres sont donnees par leur code, pour qu'une recherche dans les fichiers ne tombe pas dessus.
 var codeNocturne = string([]byte{109, 97, 114, 116, 105, 109})
 var visiteurNocturne = string([]byte{77, 97, 114, 116, 105, 109})
+var fioleNocturne = false
 
 func evenementNocturne() {
 	fmt.Println()
@@ -55,6 +56,6 @@ func evenementNocturne() {
 	fmt.Println(cGras + "   " + visiteurNocturne + ", le colocataire du camp voisin, se glisse pres du feu." + cReset)
 	fmt.Println(cJaune + "   « J'ai ce qu'il te faut, recrue. Ma potion secrete. Pose pas de questions. »" + cReset)
 	fmt.Println()
-	addInventory(&joueur, "Potion secrete de " + visiteurNocturne)
+	fioleNocturne = true // le perso n'existe pas encore, je note et je donnerai la fiole apres
 	fmt.Println(cVert + "   Tu ranges la fiole dans ta besace. Elle est tiede." + cReset)
 }

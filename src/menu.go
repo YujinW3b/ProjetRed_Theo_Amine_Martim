@@ -74,8 +74,6 @@ func menuPrincipal() {
 		case "0":
 			fmt.Println("   Le Sergent hoche la tete. A demain, recrue.")
 			return // return et pas break car break fais que sortrir switch pas dla boucle
-		case codeNocturne: // saisie non listee dans le menu
-			evenementNocturne()
 		default: // prend tout reste ( vide.. ) et fais renvoie une rep
 			fmt.Println("   Parle plus clairement, recrue.")
 		}
