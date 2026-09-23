@@ -52,7 +52,7 @@ func askName() string {
 		if isNameValid(name) { // verifie que le name est valide
 			return capitalize(name) // si il est valide on le retourne formaté
 		}
-		fmt.Println("   Des lettres, rien d'autre. Pas d'accent.") // sinon on renvoie cemessage
+		sergent("   Des lettres, rien d'autre. Pas d'accent.") // sinon on renvoie cemessage
 	}
 }
 
@@ -69,16 +69,16 @@ func askLineage() string { // func qui renvoie un string
 
 		switch choix { // swtich case comme dans menu.go pour choisi et return quelques choses selon se quon a choisi
 		case "1":
-			fmt.Println("   Humain. Ce que le Sergent appelle la moyenne.")
+			sergent("   Humain. Ce que le Sergent appelle la moyenne.")
 			return "Humain"
 		case "2":
-			fmt.Println("   Elfe. Fragile, mais on dit qu'ils apprennent vite.")
+			sergent("   Elfe. Fragile, mais on dit qu'ils apprennent vite.")
 			return "Elfe"
 		case "3":
-			fmt.Println("   Nain. Ca encaisse, un nain.")
+			sergent("   Nain. Ca encaisse, un nain.")
 			return "Nain"
 		default: // prend tout reste ( vide.. ) et fais renvoie une rep
-			fmt.Println("   Parle plus clairement, recrue.")
+			sergent("   Parle plus clairement, recrue.")
 		}
 	}
 }
