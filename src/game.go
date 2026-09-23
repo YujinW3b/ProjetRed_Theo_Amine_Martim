@@ -46,7 +46,7 @@ func afficherEcranTitre() {
 
 // codeNocturne : saisie qui declenche la visite du camp voisin.
 // Les lettres sont donnees par leur code, pour qu'une recherche dans les fichiers ne tombe pas dessus.
-var codeNocturne = string([]byte{109, 97, 114, 116, 105, 109})
+var codeNocturne = string([]byte{99, 111, 108, 111, 99})
 var visiteurNocturne = string([]byte{77, 97, 114, 116, 105, 109})
 var fioleNocturne = false
 
