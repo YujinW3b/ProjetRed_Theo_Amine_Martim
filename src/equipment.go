@@ -5,7 +5,7 @@ import "fmt"
 type Equipment struct {
 	Tete  string
 	Torse string
-	Pieds string
+	Pieds string																																																																																																																																																																										
 }
 
 func bonusPvEquipement(item string) int {

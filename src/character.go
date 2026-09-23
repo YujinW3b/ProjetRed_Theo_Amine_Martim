@@ -8,6 +8,7 @@ type Character struct {
 	Name                  string
 	Class                 string
 	Level                 int
+	Initiative            int // M1 : qui commence le tour de combat
 	Pvmax                 int
 	PvmaxBase             int
 	Pv                    int
@@ -27,6 +28,7 @@ type Monster struct {
 	Pvmax  int
 	Pv     int
 	Attack int
+	Initiative int // M1 : la vitesse du monstre
 }
 
 func (c *Character) initCharacter(name string, class string, level int, pvmax int, pv int, inventaire []string) {

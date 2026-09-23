@@ -83,6 +83,17 @@ func askLineage() string { // func qui renvoie un string
 	}
 }
 
+// initiativeDeBase  l'Elfe frappe avant tout le monde le Nain encaisse d'abord
+func initiativeDeBase(class string) int {
+	switch class {
+	case "Elfe":
+		return 12
+	case "Nain":
+		return 8
+	}
+	return 10 // Humain
+}
+
 func characterCreation() {
 	name := askName()       // on range la rep de la fonction dans une var
 	lineage := askLineage() // pareil ici
@@ -99,6 +110,7 @@ func characterCreation() {
 
 	// je demarre a moitie de vie le Sergent donne jamais une recrue en pleine forme
 	joueur.initCharacter(name, lineage, 1, pvmax, pvmax/2, []string{"Potion de vie", "Potion de vie", "Potion de vie"})
+	joueur.Initiative = initiativeDeBase(lineage) // M1 : la vitesse depend du lignage
 
 	if fioleNocturne { // le visiteur d'hier soir avait laisse quelque chose
 		addInventory(&joueur, "Potion secrete de "+visiteurNocturne)

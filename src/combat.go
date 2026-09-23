@@ -166,6 +166,7 @@ func characterTurn(goblin *Monster) bool {
 
 func trainingFight() {
 	goblin := initGoblin() // un gobelin neuf a chaque combat
+	goblin.Initiative = 9 // M1 : plus lent que l'Elfe et l'Humain, plus rapide que le Nain
 	turn := 1              // init tour a 1 pas 0
 
 	fmt.Println()
