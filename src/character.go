@@ -78,7 +78,6 @@ func spellBook(c *Character) bool {
 	fmt.Println("Sergent : « Nouveau sort appris : Boule de Feu ! »")
 	return true
 }
-<<<<<<< HEAD
 func (c *Character) isDead() bool {
 if c.Pv> 0 { 
 	return false
@@ -87,5 +86,3 @@ if c.Pv> 0 {
 c.Pv= c.Pvmax/2 
 return true 
 }
-=======
->>>>>>> 6331bf2aa6e2cbf1ea9f22e2108f9c2f821a125c

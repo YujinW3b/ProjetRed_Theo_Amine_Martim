@@ -1,5 +1,7 @@
 # AUBEFER
 
+![Le camp d'Aubefer](docs/banniere.png)
+
 Mini-jeu en ligne de commande écrit en Go. Projet RED, B1 Informatique, Ynov Campus Aix.
 
 Vous êtes une recrue au camp d'entraînement d'Aubefer. Vous choisissez un nom et un
