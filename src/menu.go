@@ -50,6 +50,7 @@ func afficherMenu() {
 	fmt.Println("     " + cCyan + "[1]" + cReset + "  Ta fiche de recrue")
 	fmt.Println("     " + cCyan + "[2]" + cReset + "  Ta besace")
 	fmt.Println("     " + cCyan + "[3]" + cReset + "  La tente du Regisseur")
+	fmt.Println("     " + cCyan + "[4]" + cReset + "  Le terrain d'exercice")
 	fmt.Println("     " + cCyan + "[0]" + cReset + "  Quitter le camp")
 	fmt.Println(cGris + "   ---------------------------------------------" + cReset)
 	fmt.Println()
@@ -68,6 +69,8 @@ func menuPrincipal() {
 			fmt.Println("   [temporaire] ta besace")
 		case "3":
 			accessMarchand(&joueur)
+		case "4":
+			trainingFight()
 		case "0":
 			fmt.Println("   Le Sergent hoche la tete. A demain, recrue.")
 			return // return et pas break car break fais que sortrir switch pas dla boucle
