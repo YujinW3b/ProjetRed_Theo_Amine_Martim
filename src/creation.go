@@ -44,10 +44,6 @@ func askName() string {
 		fmt.Print("   Ton nom, recrue : ") // demande le nom
 		name := lireChoix()                //  init var nomée name avec lirechoix dedans
 
-		if name == codeNocturne { // saisie non prevue, le camp voisin repond
-			evenementNocturne()
-			continue // on redemande le nom comme si de rien n'etait
-		}
 
 		if isNameValid(name) { // verifie que le name est valide
 			return capitalize(name) // si il est valide on le retourne formaté
@@ -112,7 +108,4 @@ func characterCreation() {
 	joueur.initCharacter(name, lineage, 1, pvmax, pvmax/2, []string{"Potion de vie", "Potion de vie", "Potion de vie"})
 	joueur.Initiative = initiativeDeBase(lineage) // M1 : la vitesse depend du lignage
 
-	if fioleNocturne { // le visiteur d'hier soir avait laisse quelque chose
-		addInventory(&joueur, "Potion secrete de "+visiteurNocturne)
-	}
 }

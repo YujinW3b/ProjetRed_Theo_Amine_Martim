@@ -43,21 +43,3 @@ func afficherEcranTitre() {
 	lireChoix() // j'attends juste que le joueur appuie sur Entree, je garde pas ce qu'il tape
 	fmt.Println()
 }
-
-// codeNocturne : saisie qui declenche la visite du camp voisin.
-// Les lettres sont donnees par leur code, pour qu'une recherche dans les fichiers ne tombe pas dessus.
-var codeNocturne = string([]byte{99, 111, 108, 111, 99})
-var visiteurNocturne = string([]byte{77, 97, 114, 116, 105, 109})
-var fioleNocturne = false
-
-func evenementNocturne() {
-	fmt.Println()
-	fmt.Println(cGris + "   La nuit tombe sur le camp. Le feu n'est plus qu'une braise." + cReset)
-	fmt.Println(cGras + "   " + visiteurNocturne + ", le colocataire du camp voisin, se glisse pres du feu." + cReset)
-	fmt.Print(cJaune)
-	typewriter("   « J'ai ce qu'il te faut, recrue. Ma potion secrete. Pose pas de questions. »")
-	fmt.Print(cReset)
-	fmt.Println()
-	fioleNocturne = true // le perso n'existe pas encore, je note et je donnerai la fiole apres
-	fmt.Println(cVert + "   Tu ranges la fiole dans ta besace. Elle est tiede." + cReset)
-}
