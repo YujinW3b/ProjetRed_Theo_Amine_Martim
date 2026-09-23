@@ -112,7 +112,7 @@ func castSpell(goblin *Monster) {
 	}
 }
 
-func goblinPattern(goblin Monster, turn int) {
+func goblinPattern(goblin Monster, turn int) bool {
 	if turn%3 == 0 {
 		fmt.Println("   Le gobelin prend son elan... attaque renforcee !")
 	}
@@ -127,7 +127,7 @@ func goblinPattern(goblin Monster, turn int) {
 	fmt.Println("  ", goblin.Name, "inflige à", joueur.Name, damage, "de dégâts")
 	fmt.Println("  ", joueur.Name, "PV :", joueur.Pv, "/", joueur.Pvmax)
 
-	isDead(&joueur)
+	return isDead(&joueur) // true si le joueur est tombe a 0 (il a ete ressuscite)
 }
 
 func characterTurn(goblin *Monster) {
@@ -147,5 +147,36 @@ func characterTurn(goblin *Monster) {
 		takePot(&joueur)
 	case "spell":
 		castSpell(goblin)
+	}
+}
+
+func trainingFight() {
+	goblin := initGoblin() // un gobelin neuf a chaque combat
+	turn := 1              // init tour a 1 pas 0
+
+	fmt.Println()
+	fmt.Println(cGras + "   Le Sergent ouvre la fosse. Le gobelin d'entrainement t'attend." + cReset)
+
+	for {
+		fmt.Println()
+		fmt.Println(cGris+"   ===== TOUR", turn, "====="+cReset) // nombre tour ecris
+
+		characterTurn(&goblin)
+
+		if goblin.Pv <= 0 { // le gobelin est tombe donc victoire on sort
+			fmt.Println()
+			fmt.Println(cJaune + "   Le gobelin s'effondre. Bien joue, recrue." + cReset)
+			return
+		}
+
+		mort := goblinPattern(goblin, turn)
+
+		if mort { // le joueur est tombe donc le Sergent arrete l'exercice
+			fmt.Println()
+			fmt.Println(cRouge + "   Ca suffit pour ce soir, recrue." + cReset)
+			return
+		}
+
+		turn = turn + 1 // tour suivant
 	}
 }
