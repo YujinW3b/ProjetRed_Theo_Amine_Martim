@@ -156,16 +156,23 @@ func trainingFight() {
 
 	fmt.Println()
 	fmt.Println(cGras + "   Le Sergent ouvre la fosse. Le gobelin d'entrainement t'attend." + cReset)
+	afficherArt(artGobelin, cVert) // le gobelin en ascii, une seule fois au debut
 
 	for {
 		fmt.Println()
 		fmt.Println(cGris+"   ===== TOUR", turn, "====="+cReset) // nombre tour ecris
+
+		// le rappel des deux barres de vie a chaque tour
+		fmt.Println("   " + joueur.Name + " " + barreDeVie(joueur.Pv, joueur.Pvmax))
+		fmt.Println("   " + goblin.Name + " " + barreDeVie(goblin.Pv, goblin.Pvmax))
 
 		characterTurn(&goblin)
 
 		if goblin.Pv <= 0 { // le gobelin est tombe donc victoire on sort
 			fmt.Println()
 			fmt.Println(cJaune + "   Le gobelin s'effondre. Bien joue, recrue." + cReset)
+			afficherArt(artGobelinKO, cGris)
+			afficherArt(artVictoire, cJaune)
 			return
 		}
 
@@ -174,6 +181,7 @@ func trainingFight() {
 		if mort { // le joueur est tombe donc le Sergent arrete l'exercice
 			fmt.Println()
 			fmt.Println(cRouge + "   Ca suffit pour ce soir, recrue." + cReset)
+			afficherArt(artKO, cRouge)
 			return
 		}
 
