@@ -11,7 +11,7 @@ import (
 
 // le vert manquait dans la palette de menu.go, je l'ajoute ici
 var cVert = "\033[38;5;71m" // vert mousse
-var cOs = "\033[38;5;225m" // lilas tres pale, pour les titres
+var cOs = "\033[38;5;225m"  // lilas tres pale, pour les titres
 
 // le degrade violet du jeu, du plus sombre au plus clair
 var cViolet1 = "\033[38;5;54m"

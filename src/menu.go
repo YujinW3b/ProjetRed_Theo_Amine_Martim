@@ -52,6 +52,7 @@ func afficherMenu() {
 	fmt.Println("     " + cCyan + "[2]" + cReset + "  Ta besace")
 	fmt.Println("     " + cCyan + "[3]" + cReset + "  La tente du Regisseur")
 	fmt.Println("     " + cCyan + "[4]" + cReset + "  Le terrain d'exercice")
+	fmt.Println("     " + cCyan + "[5]" + cReset + "  La palissade")
 	fmt.Println("     " + cCyan + "[0]" + cReset + "  Quitter le camp")
 	fmt.Println(cViolet2 + "   ---------------------------------------------" + cReset)
 	fmt.Println()
@@ -72,11 +73,14 @@ func menuPrincipal() {
 			accessMarchand(&joueur)
 		case "4":
 			trainingFight()
+		case "5":
+			lireGraffitisPalissade()
 		case "0":
 			sergent("   Le Sergent hoche la tete. A demain, recrue.")
 			return // return et pas break car break fais que sortrir switch pas dla boucle
 		default: // prend tout reste ( vide.. ) et fais renvoie une rep
 			sergent("   Parle plus clairement, recrue.")
+
 		}
 	}
 }
