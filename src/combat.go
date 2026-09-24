@@ -192,6 +192,15 @@ func trainingFight() {
 
 		if goblin.Pv <= 0 { // le gobelin est tombe donc victoire on sort
 			fmt.Println()
+			if goblin.Pv <= 0 { // le gobelin est tombe donc victoire on sort
+			joueur.gagnerExperience(goblin)
+			fmt.Println()
+			typewriter(cJaune + "   Le gobelin s'effondre. Bien joue, recrue." + cReset)
+			afficherArt(artGobelinKO, cGris)
+			afficherArt(artVictoire, cJaune)
+			pause()
+			return
+			}
 			typewriter(cJaune + "   Le gobelin s'effondre. Bien joue, recrue." + cReset)
 			afficherArt(artGobelinKO, cGris)
 			afficherArt(artVictoire, cJaune)

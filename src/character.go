@@ -3,6 +3,7 @@ package src
 import "fmt"
 
 const inventaireCapaciteInitiale = 10
+const experienceMaxInitiale = 100
 
 type Character struct {
 	Name                  string
@@ -21,6 +22,8 @@ type Character struct {
 	PotionGratuiteRecue   bool
 	InventoryUpgradesUsed int
 	Equipment             Equipment
+	Experience            int // M2 : experience actuelle vers le prochain niveau
+	ExperienceMax         int // M2 : palier a atteindre pour monter de niveau
 }
 
 type Monster struct {
@@ -47,6 +50,8 @@ func (c *Character) initCharacter(name string, class string, level int, pvmax in
 	c.Or = 100
 	c.PotionGratuiteRecue = false
 	c.InventoryUpgradesUsed = 0
+	c.Experience = 0
+	c.ExperienceMax = experienceMaxInitiale
 }
 
 func (c *Character) displayInfo() {
@@ -57,6 +62,7 @@ func (c *Character) displayInfo() {
 	fmt.Printf("\tPvmax : %d\n", c.Pvmax)
 	fmt.Printf("\tPv : %d\n", c.Pv)
 	fmt.Printf("\tMana : %d/%d\n", c.Mana, c.ManaMax)
+	fmt.Printf("\tExperience : %d/%d\n", c.Experience, c.ExperienceMax)
 	fmt.Printf("\tOr : %d\n", c.Or)
 	fmt.Printf("\tInventaire (%d/%d) : %v\n", len(c.Inventaire), c.InventaireMax, c.Inventaire)
 	fmt.Printf("\tSorts connus : %v\n", c.Skill)
@@ -91,4 +97,28 @@ func (c *Character) isDead() bool {
 	fmt.Println("Vous êtes mort ..., Revivre ?")
 	c.Pv = c.Pvmax / 2
 	return true
+}
+
+// gagnerExperience ajoute l'XP donnee par un monstre vaincu.
+// Si le palier est atteint, le joueur monte de niveau (l'exces
+// d'XP est REPORTE au niveau suivant, jamais perdu). Plusieurs
+// niveaux peuvent tomber d'un coup si l'XP recue est enorme.
+func (c *Character) gagnerExperience(m Monster) {
+	fmt.Println()
+	fmt.Println(cJaune + "   " + c.Name + " gagne " + fmt.Sprint(m.XPDonnee) + " points d'experience." + cReset)
+
+	c.Experience += m.XPDonnee
+
+	for c.Experience >= c.ExperienceMax {
+		c.Experience -= c.ExperienceMax // l'exces est reporte, pas remis a 0
+		c.Level++
+		c.Pvmax += 10
+		c.Pv = c.Pvmax // soin complet a la montee de niveau
+		c.ExperienceMax = int(float64(c.ExperienceMax) * 1.5) // palier suivant = palier * 1.5
+
+		fmt.Println(cCyan + "   *** NIVEAU SUPERIEUR ! " + c.Name + " passe niveau " + fmt.Sprint(c.Level) + " ***" + cReset)
+		fmt.Println("   Bonus : +10 PV max (nouveau max : " + fmt.Sprint(c.Pvmax) + "), soin complet.")
+	}
+
+	fmt.Printf("   Experience : %d/%d\n", c.Experience, c.ExperienceMax)
 }
