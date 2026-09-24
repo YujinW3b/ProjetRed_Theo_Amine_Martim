@@ -24,19 +24,12 @@ type Character struct {
 }
 
 type Monster struct {
-<<<<<<< HEAD
-	Name     string
-	Pvmax    int
-	Pv       int
-	Attack   int
-	XPDonnee int
-=======
-	Name   string
-	Pvmax  int
-	Pv     int
-	Attack int
+	Name       string
+	Pvmax      int
+	Pv         int
+	Attack     int
+	XPDonnee   int // M2 : experience laissee au joueur quand il tombe
 	Initiative int // M1 : la vitesse du monstre
->>>>>>> 7eac4e221e6aefe12e5ae31de4f1bedba45e1a57
 }
 
 func (c *Character) initCharacter(name string, class string, level int, pvmax int, pv int, inventaire []string) {
