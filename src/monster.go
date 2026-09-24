@@ -1,5 +1,5 @@
 package src
-//gobelin
+
 func initGoblin() Monster {
 	goblin := Monster{}
 
@@ -7,9 +7,7 @@ func initGoblin() Monster {
 	goblin.Pvmax = 40
 	goblin.Pv = goblin.Pvmax
 	goblin.Attack = 5
+	goblin.XPDonnee = 40
 
 	return goblin
 }
-
-// MARTIM - T19 : structure Monster + initGoblin.
-// Un NOUVEAU gobelin est cree a chaque combat.

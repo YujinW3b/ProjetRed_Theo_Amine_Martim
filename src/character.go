@@ -23,10 +23,11 @@ type Character struct {
 }
 
 type Monster struct {
-	Name   string
-	Pvmax  int
-	Pv     int
-	Attack int
+	Name     string
+	Pvmax    int
+	Pv       int
+	Attack   int
+	XPDonnee int
 }
 
 func (c *Character) initCharacter(name string, class string, level int, pvmax int, pv int, inventaire []string) {
