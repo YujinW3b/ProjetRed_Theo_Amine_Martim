@@ -10,7 +10,21 @@ import (
 )
 
 // le vert manquait dans la palette de menu.go, je l'ajoute ici
-var cVert = "\033[32m"
+var cVert = "\033[38;5;71m" // vert mousse
+var cOs = "\033[38;5;225m" // lilas tres pale, pour les titres
+
+// le degrade violet du jeu, du plus sombre au plus clair
+var cViolet1 = "\033[38;5;54m"
+var cViolet2 = "\033[38;5;91m"
+var cViolet3 = "\033[38;5;97m"
+var cViolet4 = "\033[38;5;134m"
+var cViolet5 = "\033[38;5;141m"
+var cViolet6 = "\033[38;5;183m"
+
+// le feu garde ses teintes chaudes, c'est la seule chose qui brille dans le camp
+var cFeu1 = "\033[38;5;124m" // braise sombre
+var cFeu2 = "\033[38;5;166m" // orange
+var cFeu3 = "\033[38;5;214m" // flamme claire
 
 // ---------------------------------------------------------------------------
 // LES PLANCHES ASCII
@@ -79,7 +93,7 @@ func afficherArt(art string, couleur string) {
 
 // effacerEcran vide le terminal et remonte le curseur en haut
 func effacerEcran() {
-	fmt.Print("\033[2J\033[H")
+	fmt.Print("\033[H\033[2J\033[3J") // 2J efface l'ecran, 3J vide aussi l'historique de defilement
 }
 
 // barreDeVie fabrique une barre du style [##########------]
@@ -187,4 +201,19 @@ func typewriter(texte string) {
 		time.Sleep(20 * time.Millisecond)
 	}
 	fmt.Println()
+}
+
+// pause attend que le joueur appuie sur Entree.
+// Sans ca, l'ecran se nettoie avant qu'il ait eu le temps de lire.
+func pause() {
+	fmt.Println()
+	fmt.Print(cGris + "   Appuie sur Entree pour continuer..." + cReset)
+	lireChoix()
+}
+
+// sergent affiche une replique lettre par lettre, dans la couleur du Sergent
+func sergent(texte string) {
+	fmt.Print(cGras)
+	typewriter(texte)
+	fmt.Print(cReset)
 }

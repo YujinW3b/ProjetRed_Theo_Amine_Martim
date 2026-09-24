@@ -125,8 +125,13 @@ func accessInventory(c *Character) {
 		fmt.Println("0 - Retour au feu de camp.")
 		fmt.Println("Votre choix ?")
 
+		choixTexte := lireChoix() // meme lecteur que tout le jeu, sinon les saisies sautent
 		var choix int
-		fmt.Scan(&choix)
+		_, err := fmt.Sscanf(choixTexte, "%d", &choix)
+		if err != nil {
+			fmt.Println("Sergent : « Parle plus clairement, recrue. »")
+			continue
+		}
 
 		if choix == 0 {
 			return

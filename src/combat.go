@@ -33,7 +33,7 @@ func askCombatAction() string {
 		case "3":
 			return "spell"
 		default:
-			fmt.Println("   Parle plus clairement, recrue.")
+			sergent("   Parle plus clairement, recrue.")
 		}
 	}
 }
@@ -122,7 +122,7 @@ func castSpell(goblin *Monster) bool {
 
 func goblinPattern(goblin Monster, turn int) bool {
 	if turn%3 == 0 {
-		fmt.Println("   Le gobelin prend son elan... attaque renforcee !")
+		typewriter(cRouge + "   Le gobelin prend son elan... attaque renforcee !" + cReset)
 	}
 
 	damage := goblinDamage(goblin.Attack, turn)
@@ -166,10 +166,11 @@ func characterTurn(goblin *Monster) bool {
 
 func trainingFight() {
 	goblin := initGoblin() // un gobelin neuf a chaque combat
+	goblin.Initiative = 9 // M1 : plus lent que l'Elfe et l'Humain, plus rapide que le Nain
 	turn := 1              // init tour a 1 pas 0
 
 	fmt.Println()
-	fmt.Println(cGras + "   Le Sergent ouvre la fosse. Le gobelin d'entrainement t'attend." + cReset)
+	sergent("   Le Sergent ouvre la fosse. Le gobelin d'entrainement t'attend.")
 	afficherArt(artGobelin, cVert) // le gobelin en ascii, une seule fois au debut
 
 	for {
@@ -191,9 +192,10 @@ func trainingFight() {
 
 		if goblin.Pv <= 0 { // le gobelin est tombe donc victoire on sort
 			fmt.Println()
-			fmt.Println(cJaune + "   Le gobelin s'effondre. Bien joue, recrue." + cReset)
+			typewriter(cJaune + "   Le gobelin s'effondre. Bien joue, recrue." + cReset)
 			afficherArt(artGobelinKO, cGris)
 			afficherArt(artVictoire, cJaune)
+			pause()
 			return
 		}
 
@@ -201,8 +203,9 @@ func trainingFight() {
 
 		if mort { // le joueur est tombe donc le Sergent arrete l'exercice
 			fmt.Println()
-			fmt.Println(cRouge + "   Ca suffit pour ce soir, recrue." + cReset)
+			typewriter(cRouge + "   Ca suffit pour ce soir, recrue." + cReset)
 			afficherArt(artKO, cRouge)
+			pause()
 			return
 		}
 

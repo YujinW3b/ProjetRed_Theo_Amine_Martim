@@ -44,15 +44,11 @@ func askName() string {
 		fmt.Print("   Ton nom, recrue : ") // demande le nom
 		name := lireChoix()                //  init var nomée name avec lirechoix dedans
 
-		if name == codeNocturne { // saisie non prevue, le camp voisin repond
-			evenementNocturne()
-			continue // on redemande le nom comme si de rien n'etait
-		}
 
 		if isNameValid(name) { // verifie que le name est valide
 			return capitalize(name) // si il est valide on le retourne formaté
 		}
-		fmt.Println("   Des lettres, rien d'autre. Pas d'accent.") // sinon on renvoie cemessage
+		sergent("   Des lettres, rien d'autre. Pas d'accent.") // sinon on renvoie cemessage
 	}
 }
 
@@ -69,18 +65,29 @@ func askLineage() string { // func qui renvoie un string
 
 		switch choix { // swtich case comme dans menu.go pour choisi et return quelques choses selon se quon a choisi
 		case "1":
-			fmt.Println("   Humain. Ce que le Sergent appelle la moyenne.")
+			sergent("   Humain. Ce que le Sergent appelle la moyenne.")
 			return "Humain"
 		case "2":
-			fmt.Println("   Elfe. Fragile, mais on dit qu'ils apprennent vite.")
+			sergent("   Elfe. Fragile, mais on dit qu'ils apprennent vite.")
 			return "Elfe"
 		case "3":
-			fmt.Println("   Nain. Ca encaisse, un nain.")
+			sergent("   Nain. Ca encaisse, un nain.")
 			return "Nain"
 		default: // prend tout reste ( vide.. ) et fais renvoie une rep
-			fmt.Println("   Parle plus clairement, recrue.")
+			sergent("   Parle plus clairement, recrue.")
 		}
 	}
+}
+
+// initiativeDeBase  l'Elfe frappe avant tout le monde le Nain encaisse d'abord
+func initiativeDeBase(class string) int {
+	switch class {
+	case "Elfe":
+		return 12
+	case "Nain":
+		return 8
+	}
+	return 10 // Humain
 }
 
 func characterCreation() {
@@ -99,8 +106,6 @@ func characterCreation() {
 
 	// je demarre a moitie de vie le Sergent donne jamais une recrue en pleine forme
 	joueur.initCharacter(name, lineage, 1, pvmax, pvmax/2, []string{"Potion de vie", "Potion de vie", "Potion de vie"})
+	joueur.Initiative = initiativeDeBase(lineage) // M1 : la vitesse depend du lignage
 
-	if fioleNocturne { // le visiteur d'hier soir avait laisse quelque chose
-		addInventory(&joueur, "Potion secrete de "+visiteurNocturne)
-	}
 }
