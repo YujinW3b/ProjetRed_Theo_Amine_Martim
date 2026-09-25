@@ -67,6 +67,7 @@ func menuPrincipal() {
 		switch choix {
 		case "1":
 			joueur.displayInfo()
+			pause()
 		case "2":
 			accessInventory(&joueur)
 		case "3":
