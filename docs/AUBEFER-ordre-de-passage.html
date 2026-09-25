@@ -1,0 +1,378 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Ordre de passage AUBEFER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --ink:#0B0812; --ink2:#120C1C; --surface:#1A1228; --surface2:#221735;
+  --line:#2E2145; --line2:#3B2B57;
+  --violet:#AF87FF; --violet-hi:#D7AFFF; --violet-deep:#8700AF;
+  --ember:#FFAF00; --moss:#6FBF6F; --blood:#C1272D;
+  --text:#CEC1E4; --muted:#8C7FAA; --dim:#6B5F86;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+  --disp:'Oswald',var(--sans);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ink); color:var(--text); font-family:var(--sans);
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+  padding:0 20px 80px;
+}
+.wrap{max-width:880px; margin:0 auto}
+
+/* ---- header ---- */
+header{padding-block:40px 28px}
+.eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.26em; text-transform:uppercase;
+  color:var(--ember); margin:0 0 12px}
+h1{font-family:var(--disp); font-weight:700; font-size:clamp(34px,7vw,54px); line-height:1.02;
+  margin:0 0 14px; color:#F3ECFF; letter-spacing:.01em; text-wrap:balance}
+.sub{margin:0; color:var(--muted); font-size:17px}
+.sub b{color:var(--text); font-weight:600}
+
+/* ---- versions ---- */
+.versions{display:flex; gap:12px; flex-wrap:wrap; margin-top:22px}
+.vcard{flex:1; min-width:220px; background:var(--surface); border:1px solid var(--line);
+  border-radius:12px; padding:16px 18px}
+.vcard.pick{border-color:rgba(255,175,0,.5); background:linear-gradient(160deg,#2A1B0E,#160F1E)}
+.vcard .t{font-family:var(--disp); font-size:26px; font-weight:600; color:#F3ECFF; line-height:1}
+.vcard.pick .t{color:var(--ember)}
+.vcard p{margin:6px 0 0; font-size:14px; color:var(--muted)}
+
+/* ---- rehearsal bar ---- */
+.bar{position:sticky; top:env(safe-area-inset-top, 0px); z-index:10; margin-top:28px;
+  background:rgba(18,12,28,.94); backdrop-filter:blur(8px);
+  border:1px solid var(--line2); border-radius:14px; padding:14px 16px;
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+.bar .clock{font-family:var(--mono); font-size:30px; font-weight:700; color:#F3ECFF;
+  font-variant-numeric:tabular-nums; line-height:1}
+.bar .delta{font-family:var(--mono); font-size:14px; color:var(--muted); min-width:9ch}
+.bar .delta.ahead{color:var(--moss)} .bar .delta.late{color:var(--blood)}
+.bar .now{flex:1; min-width:150px; font-size:14px; color:var(--muted)}
+.bar .now b{display:block; color:var(--text); font-size:16px; font-weight:600}
+button{font-family:var(--sans); font-size:14px; font-weight:600; cursor:pointer;
+  background:var(--surface2); color:var(--text); border:1px solid var(--line2);
+  border-radius:9px; padding:9px 15px}
+button:hover{border-color:var(--violet); color:#F3ECFF}
+button:focus-visible{outline:2px solid var(--violet); outline-offset:2px}
+button.go{background:var(--violet); border-color:var(--violet); color:#17091F}
+button.go:hover{background:var(--violet-hi); color:#17091F}
+
+/* ---- filter chips ---- */
+.chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:26px}
+.chip{font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+  padding:8px 14px; border-radius:99px; background:transparent; border:1px solid var(--line2);
+  color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--violet); border-color:var(--violet); color:#17091F}
+
+/* ---- order list ---- */
+h2{font-family:var(--disp); font-weight:600; font-size:28px; margin:44px 0 6px;
+  color:#F3ECFF; letter-spacing:.02em}
+h2 + .note{margin:0 0 18px; color:var(--muted); font-size:15px}
+
+ol.order{list-style:none; padding:0; margin:18px 0 0; display:flex; flex-direction:column; gap:8px}
+.row{display:grid; grid-template-columns:34px 1fr auto auto; gap:14px; align-items:center;
+  background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--line2);
+  border-radius:10px; padding:13px 16px}
+.row.dim{opacity:.42}
+.row.active{border-color:var(--violet); border-left-color:var(--violet);
+  background:linear-gradient(100deg,#251A38,#191125)}
+.row.done{border-left-color:var(--moss)}
+.row .n{font-family:var(--mono); font-size:13px; color:var(--dim); font-variant-numeric:tabular-nums}
+.row .nm{font-size:16px; color:var(--text); min-width:0}
+.row .nm .skip{display:inline-block; font-family:var(--mono); font-size:11px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ember); border:1px solid rgba(255,175,0,.4);
+  border-radius:4px; padding:1px 6px; margin-left:8px; vertical-align:1px}
+.row .who{font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:.14em;
+  text-transform:uppercase; padding:5px 10px; border-radius:99px; white-space:nowrap}
+.row .tm{font-family:var(--mono); font-size:14px; color:var(--muted); font-variant-numeric:tabular-nums}
+.w-theo{background:rgba(175,135,255,.16); color:var(--violet)}
+.w-amine{background:rgba(255,175,0,.14); color:var(--ember)}
+.w-martim{background:rgba(111,191,111,.15); color:var(--moss)}
+.w-tous{background:rgba(215,175,255,.14); color:var(--violet-hi)}
+.row.demo{border-left-color:var(--ember); border-color:rgba(255,175,0,.42);
+  background:linear-gradient(100deg,#2A1B0E,#160F1E)}
+.row.demo .nm{font-weight:600; color:#FFF3E2}
+
+.totals{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; font-family:var(--mono);
+  font-size:13px; color:var(--muted)}
+.totals span{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:7px 12px}
+
+/* ---- demo steps ---- */
+.steps{list-style:none; padding:0; margin:18px 0 0; display:flex; flex-direction:column; gap:10px}
+.steps li{background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  padding:14px 16px; display:flex; gap:14px; align-items:flex-start}
+.steps .who{flex:0 0 auto}
+.steps p{margin:0; font-size:15px}
+.rules{margin:18px 0 0; padding:16px 18px; background:rgba(193,39,45,.08);
+  border:1px solid rgba(193,39,45,.3); border-radius:10px}
+.rules ul{margin:0; padding-left:20px} .rules li{margin-bottom:6px; font-size:15px}
+.rules li::marker{color:var(--blood)}
+
+/* ---- Q&A ---- */
+.qa{display:flex; flex-direction:column; gap:8px; margin-top:18px}
+details{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:0}
+details[open]{border-color:var(--line2)}
+summary{cursor:pointer; padding:14px 16px; display:flex; gap:12px; align-items:center;
+  font-size:16px; color:var(--text); list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+"; margin-left:auto; font-family:var(--mono); color:var(--dim); font-size:18px}
+details[open] summary::after{content:"–"}
+details p{margin:0; padding:0 16px 16px; color:var(--muted); font-size:15px}
+code,.kbd{font-family:var(--mono); font-size:.88em; background:var(--surface2);
+  border:1px solid var(--line2); border-radius:4px; padding:1px 5px; color:var(--violet-hi)}
+
+/* ---- checklist ---- */
+.check{list-style:none; padding:0; margin:18px 0 0; display:flex; flex-direction:column; gap:8px}
+.check li{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:0}
+.check label{display:flex; gap:13px; align-items:flex-start; padding:14px 16px; cursor:pointer; font-size:15px}
+.check input{margin:2px 0 0; width:19px; height:19px; accent-color:var(--violet); flex:0 0 auto}
+.check input:checked + span{color:var(--dim); text-decoration:line-through}
+
+footer{margin-top:52px; padding-top:22px; border-top:1px solid var(--line);
+  color:var(--dim); font-family:var(--mono); font-size:13px}
+
+@media (max-width:560px){
+  .row{grid-template-columns:28px 1fr auto; row-gap:7px}
+  .row .nm{grid-column:2 / -1}
+  .row .who{grid-column:2; grid-row:2; justify-self:start}
+  .row .tm{grid-column:3; grid-row:2; justify-self:end}
+  .bar{gap:10px} .bar .clock{font-size:26px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">Projet RED · Ynov Campus Aix · B1 Informatique</p>
+  <h1>Ordre de passage</h1>
+  <p class="sub"><b>Vendredi 25/09, 14h00.</b> Créneau de 5 à 10 minutes, puis un temps d'échange.<br>
+  Support : 16 slides. Flèches pour naviguer, <span class="kbd">O</span> pour le sommaire. Le prénom de celui qui parle s'affiche en bas à droite de chaque slide.</p>
+
+  <div class="versions">
+    <div class="vcard pick">
+      <div class="t">8 min 40</div>
+      <p><b>Version courte — celle qu'on vise.</b> On saute les slides 4, 5 et 7.</p>
+    </div>
+    <div class="vcard">
+      <div class="t">10 min 25</div>
+      <p>Version complète. C'est le plafond du créneau, pas une cible.</p>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <span class="clock" id="clock">0:00</span>
+  <span class="delta" id="delta">—</span>
+  <span class="now" id="now"><b>Prêt</b>Démarre le chrono pour répéter</span>
+  <button class="go" id="start">Démarrer</button>
+  <button id="next">Slide suivante</button>
+  <button id="reset">Remettre à zéro</button>
+</div>
+
+<h2>Qui parle, et quand</h2>
+<p class="note">Filtre sur ton prénom pour ne voir que tes passages.</p>
+<div class="chips" id="chips"></div>
+<ol class="order" id="order"></ol>
+<div class="totals" id="totals"></div>
+
+<h2>La démo — slide 8</h2>
+<p class="note">25 points sur 100. On se passe le clavier, on ne le garde pas.</p>
+<ol class="steps">
+  <li><span class="who w-theo">Théo</span><p>Lance <code>go run main.go</code>. Écran titre, entrer au camp. Créer la recrue : un nom <b>en minuscules</b> (montre la majuscule automatique), puis un nom <b>avec un chiffre</b> (montre le refus), puis choisir un lignage. Montre la fiche <code>[1]</code> et la besace <code>[2]</code>.</p></li>
+  <li><span class="who w-amine">Amine</span><p>Prend le clavier. La tente du Régisseur <code>[3]</code> : acheter une potion, montrer l'or qui baisse, commenter un prix.</p></li>
+  <li><span class="who w-martim">Martim</span><p>Prend le clavier. Le terrain d'exercice <code>[4]</code> : une attaque, une potion en plein combat, un sort, finir le gobelin. Montrer l'expérience gagnée à la fin.</p></li>
+  <li><span class="who w-theo">Théo</span><p>La palissade <code>[5]</code> en passant, puis <code>[0]</code> pour quitter proprement.</p></li>
+</ol>
+<div class="rules">
+  <ul>
+    <li>On ne clique <b>jamais</b> sur une option qu'on n'a pas répétée.</li>
+    <li><b>Si ça plante, on ne débugue pas en direct.</b> « On a une capture, je reprends » → slide suivante. Les slides 4 et 5 rejouent le jeu, elles servent exactement à ça.</li>
+    <li>On parle pendant qu'on tape. Sinon il y a des silences.</li>
+    <li>Terminal maximisé, police agrandie, jeu déjà compilé <b>avant</b> d'entrer dans la salle.</li>
+  </ul>
+</div>
+
+<h2>Le temps d'échange</h2>
+<p class="note">Qui répond à quoi. Si une question dépasse : « je ne sais pas, je regarderais dans la documentation de Go » vaut mieux qu'une invention — le jury le voit tout de suite.</p>
+<div class="qa" id="qa"></div>
+
+<h2>Avant d'entrer dans la salle</h2>
+<p class="note">Coché sur ton appareil uniquement — ça ne se partage pas entre vous.</p>
+<ul class="check" id="check"></ul>
+
+<footer>AUBEFER — Théo SUGIER · Amine KOUAIDI · Martim GALHARDO</footer>
+</div>
+
+<script>
+const ORDER = [
+  {n:1,  nm:"Couverture",                    who:"Théo",   s:25},
+  {n:2,  nm:"Le thème",                      who:"Théo",   s:45},
+  {n:3,  nm:"Le parcours du joueur",         who:"Martim", s:30},
+  {n:4,  nm:"Le camp (terminal rejoué)",     who:"Martim", s:30, skip:true},
+  {n:5,  nm:"Un tour de combat",             who:"Martim", s:35, skip:true},
+  {n:6,  nm:"Ce qu'on a livré",              who:"Amine",  s:45},
+  {n:7,  nm:"L'architecture",                who:"Théo",   s:40, skip:true},
+  {n:8,  nm:"DÉMONSTRATION EN DIRECT",       who:"Tous",   s:150, demo:true},
+  {n:9,  nm:"L'organisation",                who:"Théo",   s:50},
+  {n:10, nm:"Qui a fait quoi",               who:"Tous",   s:25},
+  {n:11, nm:"Les difficultés",               who:"Amine",  s:55},
+  {n:12, nm:"Objectifs + ce qu'on a appris", who:"Martim", s:45},
+  {n:13, nm:"Ce qu'on ferait autrement",     who:"Martim", s:35},
+  {n:14, nm:"Merci + questions",             who:"Théo",   s:15}
+];
+
+const QA = [
+  ["Pourquoi Go ?","Théo","Imposé par les exemples du sujet."],
+  ["Pourquoi un dossier <code>src/</code> et un <code>main.go</code> à la racine ?","Théo","Le jeu se lance avec <code>go run main.go</code> et le code reste rangé. <code>main.go</code> ne fait qu'appeler <code>src.Start()</code>."],
+  ["Pourquoi <code>Start</code> avec une majuscule ?","Théo","En Go, un identifiant qui commence par une majuscule est exporté, donc visible hors du package. C'est la seule fonction de <code>src</code> appelée de l'extérieur."],
+  ["C'est quoi un pointeur, et pourquoi ici ?","Théo","<code>characterTurn</code> reçoit <code>*Monster</code> : sans l'adresse, la fonction travaillerait sur une copie et les dégâts seraient perdus en sortant."],
+  ["Pourquoi l'inventaire est une slice et pas une map ?","Amine","En Go, l'ordre de parcours d'une map est volontairement aléatoire. L'affichage de la besace changerait à chaque tour."],
+  ["Que se passe-t-il si l'objet n'est pas dans la besace ?","Amine","<code>findItemIndex</code> renvoie <code>-1</code>, et l'appelant teste <code>-1</code> avant d'agir."],
+  ["Comment le gobelin choisit son action ?","Martim","<code>goblinPattern</code> dépend du numéro de tour, pas du hasard. Le motif est prévisible, donc testable."],
+  ["Pourquoi <code>goblinPattern</code> renvoie un booléen ?","Martim","<code>isDead</code> remet le joueur debout. Tester <code>Pv &lt;= 0</code> après coup ne détecterait donc jamais la mort : c'est la fonction qui signale."],
+  ["Comment vous avez géré les conflits Git ?","Théo","Un fichier par domaine, une branche par tâche, relecture avant fusion. Et on relance le jeu avant chaque push."],
+  ["Qui a fait quoi ?","Tous","Chacun répond pour son domaine. <b>Personne ne bluffe</b> — si la fonction n'est pas de toi, tu le dis et tu passes la main."]
+];
+
+const CHECK = [
+  "Dépôt accessible au jury — il est encore privé",
+  "Support déposé sur Moodle en PDF",
+  "Démo répétée deux fois en entier, chronomètre en main",
+  "Terminal maximisé, police agrandie, jeu compilé",
+  "Support ouvert dans un onglet, terminal dans l'autre",
+  "D'accord à trois sur qui revendique l'habillage ASCII",
+  "Captures d'écran de secours de chaque étape de la démo"
+];
+
+const CLS = {"Théo":"w-theo","Amine":"w-amine","Martim":"w-martim","Tous":"w-tous"};
+const LABEL = {"Tous":"Les trois"};
+const mmss = s => Math.floor(s/60) + ":" + String(Math.round(s%60)).padStart(2,"0");
+
+/* ---------- ordre ---------- */
+const orderEl = document.getElementById('order');
+ORDER.forEach((r, i) => {
+  const li = document.createElement('li');
+  li.className = 'row' + (r.demo ? ' demo' : '');
+  li.dataset.who = r.who; li.dataset.i = i;
+  li.innerHTML =
+    '<span class="n">' + String(r.n).padStart(2,'0') + '</span>' +
+    '<span class="nm">' + r.nm + (r.skip ? '<span class="skip">sautable</span>' : '') + '</span>' +
+    '<span class="who ' + CLS[r.who] + '">' + (LABEL[r.who] || r.who) + '</span>' +
+    '<span class="tm">' + mmss(r.s) + '</span>';
+  orderEl.appendChild(li);
+});
+const rows = Array.from(orderEl.children);
+
+/* ---------- totaux ---------- */
+const sum = a => a.reduce((t,r) => t + r.s, 0);
+document.getElementById('totals').innerHTML =
+  ['Version courte ' + mmss(sum(ORDER.filter(r => !r.skip))),
+   'Version complète ' + mmss(sum(ORDER)),
+   'Théo ' + mmss(sum(ORDER.filter(r => r.who === 'Théo'))),
+   'Amine ' + mmss(sum(ORDER.filter(r => r.who === 'Amine'))),
+   'Martim ' + mmss(sum(ORDER.filter(r => r.who === 'Martim'))),
+   'Démo à trois ' + mmss(150)
+  ].map(t => '<span>' + t + '</span>').join('');
+
+/* ---------- filtre ---------- */
+const chipsEl = document.getElementById('chips');
+let filter = 'Tout';
+['Tout','Théo','Amine','Martim'].forEach(name => {
+  const b = document.createElement('button');
+  b.className = 'chip'; b.type = 'button'; b.textContent = name;
+  b.setAttribute('aria-pressed', name === 'Tout');
+  b.addEventListener('click', () => {
+    filter = name;
+    chipsEl.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c.textContent === name));
+    paintFilter();
+  });
+  chipsEl.appendChild(b);
+});
+function paintFilter(){
+  rows.forEach((li, i) => {
+    const w = ORDER[i].who;
+    li.classList.toggle('dim', filter !== 'Tout' && w !== filter && w !== 'Tous');
+  });
+}
+
+/* ---------- questions ---------- */
+document.getElementById('qa').innerHTML = QA.map(([q, who, a]) =>
+  '<details><summary><span class="who ' + CLS[who] + '">' + (LABEL[who] || who) + '</span>' + q + '</summary><p>' + a + '</p></details>'
+).join('');
+
+/* ---------- checklist ---------- */
+const checkEl = document.getElementById('check');
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem('aubefer-check') || '{}'); } catch (e) {}
+CHECK.forEach((t, i) => {
+  const li = document.createElement('li');
+  const id = 'chk-' + i;
+  li.innerHTML = '<label for="' + id + '"><input type="checkbox" id="' + id + '"><span>' + t + '</span></label>';
+  const box = li.querySelector('input');
+  box.checked = !!saved[id];
+  box.addEventListener('change', () => {
+    saved[id] = box.checked;
+    try { localStorage.setItem('aubefer-check', JSON.stringify(saved)); } catch (e) {}
+  });
+  checkEl.appendChild(li);
+});
+
+/* ---------- chrono de répétition ---------- */
+const clockEl = document.getElementById('clock');
+const deltaEl = document.getElementById('delta');
+const nowEl   = document.getElementById('now');
+const startBtn = document.getElementById('start');
+const nextBtn  = document.getElementById('next');
+
+let running = false, t0 = 0, idx = -1, tick = null;
+const LIVE = ORDER.map((r, i) => i);          // on chronomètre tout, sautables comprises
+const cumul = i => sum(ORDER.slice(0, i + 1));
+
+function paintClock(){
+  const el = running ? (Date.now() - t0) / 1000 : 0;
+  clockEl.textContent = mmss(el);
+  if (idx < 0) { deltaEl.textContent = '—'; deltaEl.className = 'delta'; return; }
+  const d = Math.round(el - cumul(idx));
+  deltaEl.textContent = (d >= 0 ? '+' : '−') + mmss(Math.abs(d));
+  deltaEl.className = 'delta ' + (d > 15 ? 'late' : (d < -15 ? 'ahead' : ''));
+}
+function show(i){
+  rows.forEach((li, k) => {
+    li.classList.toggle('active', k === i);
+    li.classList.toggle('done', k < i);
+  });
+  if (i < 0 || i >= ORDER.length) { nowEl.innerHTML = '<b>Terminé</b>Bravo'; return; }
+  const r = ORDER[i];
+  nowEl.innerHTML = '<b>' + r.nm + '</b>' + (LABEL[r.who] || r.who) + ' · ' + mmss(r.s) + ' visées';
+  rows[i].scrollIntoView({ block: 'center', behavior: 'smooth' });
+}
+startBtn.addEventListener('click', () => {
+  if (!running) {
+    running = true; t0 = Date.now(); idx = 0;
+    startBtn.textContent = 'Pause'; startBtn.classList.remove('go');
+    tick = setInterval(paintClock, 250);
+    show(0); paintClock();
+  } else {
+    running = false; clearInterval(tick); tick = null;
+    startBtn.textContent = 'Reprendre'; startBtn.classList.add('go');
+  }
+});
+nextBtn.addEventListener('click', () => {
+  if (idx < 0) return;
+  idx = Math.min(ORDER.length, idx + 1);
+  show(idx >= ORDER.length ? ORDER.length : idx);
+  paintClock();
+});
+document.getElementById('reset').addEventListener('click', () => {
+  running = false; if (tick) clearInterval(tick); tick = null;
+  idx = -1; t0 = 0;
+  startBtn.textContent = 'Démarrer'; startBtn.classList.add('go');
+  clockEl.textContent = '0:00'; deltaEl.textContent = '—'; deltaEl.className = 'delta';
+  nowEl.innerHTML = '<b>Prêt</b>Démarre le chrono pour répéter';
+  rows.forEach(li => li.classList.remove('active','done'));
+});
+paintFilter();
+</script>
+</body></html>
