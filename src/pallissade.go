@@ -24,6 +24,9 @@ func lireGraffitisPalissade() {
 	fmt.Println("     " + cRouge + "Les deux artistes caches dans le camp sont donc :" + cReset)
 	fmt.Println("     " + cRouge + "ABBA et Steven Spielberg." + cReset)
 	fmt.Println()
+	fmt.Println(cGris + "     Tout en bas, presque efface par la pluie, un dernier nom :" + cReset)
+	fmt.Println("     " + cViolet4 + "le grand " + string([]rune{'A','m','i','n','e','S','c','e','n','e','X','x'}) + cReset)
+	fmt.Println()
 	fmt.Print("     Appuie sur Entree pour revenir au camp...")
 	lireChoix()
 }
